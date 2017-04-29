@@ -16,5 +16,9 @@ app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
+// Verlinkung feed page
+app.get('/feed', function(req, res) {
+    res.render('pages/feed');
+});
 
 app.listen(8080);
