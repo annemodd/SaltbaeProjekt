@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <link rel="stylesheet" href="pages/css/main.css"/>
     <% include ../partials/head %>
 </head>
 <body class="container">
@@ -11,13 +12,16 @@
         <% include ../partials/header %>
     </header>
    
-    <div class="login container">
-        <h1><span class="fa fa-lock"></span>#me</h1>
-        <p>Login</p>
-        <a href="/auth/loginFa" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-        <p>Du hast ein Konto? Melde dich an</p>
-        <a href="/auth/registryfa" class="btn btn-primary">Registrieren</a>
-
+    <div class="login">
+        <div class="left">
+            <h1>#me</h1>
+            <p>Login</p>
+        </div>
+        <div class="right">
+            <a href="/auth/loginFa" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+            <p>Du hast ein Konto? Melde dich an</p>
+            <a href="/auth/registryfa" class="btn btn-primary">Registrieren</a>
+        </div>
    </div>
 </body>
 </html> 
