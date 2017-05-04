@@ -1,26 +1,33 @@
 <!-- views/pages/index.ejs -->
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="pages/css/main.css"/>
     <% include ../partials/head %>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
 </head>
 <body class="container">
 
-    <header>
-        <% include ../partials/header %>
-    </header>
+   <nav>
+    <div class="container-fluid">
+
+        <ul>
+            <li><a href="about">About</a></li>
+        </ul>
+    </div>
+</nav>
    
     <div class="login">
         <div class="left">
             <h1>#me</h1>
-            <p>Login</p>
+            <p>Join the community today and get inspired.</p>
         </div>
         <div class="right">
+            <p>Login mit deinem Facebook Konto</p>
             <a href="/auth/loginFa" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-            <p>Du hast ein Konto? Melde dich an</p>
-            <a href="/auth/registryfa" class="btn btn-primary">Registrieren</a>
+            <p>Login mit deinem Google+ Konto</p>
+            <a href="/auth/registryGo" class="btn btn-primary"><span class="fa fa-google-plus"></span> Google+</a>
         </div>
    </div>
 </body>
