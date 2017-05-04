@@ -21,4 +21,9 @@ app.get('/feed', function(req, res) {
     res.render('pages/feed');
 });
 
+// Verlinkung me page
+app.get('/me', function(req, res) {
+    res.render('pages/me');
+});
+
 app.listen(8080);
