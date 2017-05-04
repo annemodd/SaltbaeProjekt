@@ -1,0 +1,43 @@
+<!-- views/pages/me.ejs -->
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="jumbotron">
+                    <!-- Benutzername des angemeldeten Users-->
+                    <h1>Hallo <%= benutzername%>!!!</h1>
+                </div>
+            </div>       
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Beitrag</th>
+                        <th>Vorschl&auml;ge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!-- Fuer jeden Eintrag des Benutzer eine Row erstellen-->
+                    <tr>
+                        <td>Text oder Bild</td>
+                        <td>Vorchlag 1, Vorschlag 2 oder Es gibt leider noch keine Vorschl&auml;ge</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+</body>
+</html>
