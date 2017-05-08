@@ -2,6 +2,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.static("./assets"));
+
 // set view
 app.set('view engine', 'ejs');
 
@@ -19,6 +21,10 @@ app.get('/about', function(req, res) {
 // Verlinkung feed page
 app.get('/feed', function(req, res) {
     res.render('pages/feed');
+});
+
+app.get('css', function(req, res){
+    res.render('pages/css/main.css');
 });
 
 app.listen(8080);
