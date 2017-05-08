@@ -23,6 +23,11 @@ app.get('/feed', function(req, res) {
     res.render('pages/feed');
 });
 
+// Verlinkung profile page
+app.get('/profile', function(req, res) {
+    res.render('pages/profile');
+});
+
 app.get('css', function(req, res){
     res.render('pages/css/main.css');
 });
