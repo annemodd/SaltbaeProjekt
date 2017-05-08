@@ -5,58 +5,50 @@
 }
 
 body {
-    background-color:#D3D3D3;
-    padding: 100px;
+    background-image: url("../img/background.jpg");
     font-family: verdana,monospace;
 }
 
 nav {
-    background-color: #F7BE81;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 20px;
-}
-
-div.container-fluid{
-    color:#D8BFD8;
+    background-color: black;
+    width: 100%;
 }
 
 ul{
     list-style-type:none;
-    vertical-align: center;
+    text-align: right;
+    color: lightgrey;
 }
+
 
 li.title{
-    color:#D8BFD8;
-    font-family:"milkshake";
-    font-size: 45px;
+    color: lightgrey;
+    font-family: "milkshake";
+    font-size: 32px;
+    text-align: left;
 }
 
-div.feed{
-    background-color: #D8BFD8;
-    margin:20px;
-    size: 100%;
-    border-radius:20px;
-    padding: 100px;
-}
-
-img{
-    width:500px;
-    border-radius:10px;
-    display:block;
-    margin:0 auto;
+p{
+    font-size: 15px;
+    text-align: center;
+    color:black;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 20px;
 }
 
 form{
     text-align: center;
-    margin:10px;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
 }
 
-p{
-    text-align: center;
-    background-color: #F7BE81;
-    width:70%;
-    border-radius: 10px;
-    margin:0 auto;
-    padding:5px;
+img{
+    width:500px;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+    padding: 20px;
 }
+
