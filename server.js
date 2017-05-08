@@ -22,7 +22,7 @@ app.get('/feed', function(req, res) {
 });
 
 // Verlinkung profile page
-app.get('/me', function(req, res) {
+app.get('/profile', function(req, res) {
     res.render('pages/profile');
 });
 
