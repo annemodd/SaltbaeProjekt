@@ -27,4 +27,24 @@ app.get('css', function(req, res){
     res.render('pages/css/main.css');
 });
 
+app.get('/upload', function(req, res){
+    res.render('pages/upload');
+});
+
+app.get('/user', function(req, res){
+    res.render('pages/user');
+});
+
+app.get('/logout', function(req, res){
+    res.render('pages/logout');
+});
+
+app.get('/loginFa', function(req, res){
+    res.render('pages/loginFa');
+});
+
+app.get('/loginGoogle', function(req, res){
+    res.render('pages/loginGoogle');
+});
+
 app.listen(8080);
