@@ -1,0 +1,76 @@
+@font-face{
+    font-family: "milkshake";
+    src: url("fonts/Milkshake/Milkshake.ttf") format("truetype"),
+        url("fonts/Milkshake/Milkshake.otf") format("opentype");
+}
+
+body {
+    background-image: url("../img/background.jpg");
+    font-family: verdana,monospace;
+}
+
+nav {
+    background-color: black;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+
+ul{
+    list-style-type:none;
+    text-align: right;
+    color: lightgrey;
+}
+
+a{
+   color:lightgrey;
+    margin-left: 20px; 
+}
+
+a:hover{
+    background-color:black;
+    color:lightgrey;
+}
+
+li.title{
+    color: lightgrey;
+    font-family: "milkshake";
+    font-size: 32px;
+    text-align: left;
+    margin-left:20px;
+}
+
+p{
+    font-size: 15px;
+    text-align: center;
+    color:black;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 20px;
+}
+
+form{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+}
+
+img{
+    width:500px;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+    padding: 20px;
+}
+
+.btn-m{
+    background-color: black;
+    border-color:black;
+    color:lightgrey;
+    margin-top:10px;
+}
+
+div.feed{
+    background-color:lightgrey;
+}
