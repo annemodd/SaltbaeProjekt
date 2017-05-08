@@ -1,0 +1,111 @@
+@font-face{
+    font-family: "milkshake";
+    src: url("fonts/Milkshake/Milkshake.ttf") format("truetype"),
+        url("fonts/Milkshake/Milkshake.otf") format("opentype");
+}
+
+@font-face{
+    font-family: "alex";
+    src: url("fonts/AlexBrush/AlexBrush-Regular.ttf") format("truetype");
+}
+
+body {
+    background-image: url("../img/background.jpg");
+    font-family: verdana,monospace;
+    margin:0px;
+    padding:0px;
+}
+
+nav {
+    background-color: black;
+    width: 100%;
+    margin:0;
+    padding:0;
+    
+}
+
+ul{
+    list-style-type:none;
+    text-align: right;
+    color: lightgrey;
+}
+
+a{
+   color:lightgrey;
+    margin-left: 20px; 
+}
+
+a:hover{
+    background-color:black;
+    color:lightgrey;
+}
+
+li.title{
+    color: lightgrey;
+    font-family: "milkshake";
+    font-size: 32px;
+    text-align: left;
+    margin-left:20px;
+}
+
+div.container-fluid{
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+div.login{
+    margin: 20px;
+    size: 100%;
+    border-radius:20px;
+    padding: 100px;
+    text-align: center;
+    overflow: hidden;
+}
+
+
+h1{
+    color: lightgrey;
+    font-family: "milkshake";
+    font-size: 32px;
+    text-align: left;
+}
+
+p{
+    font-size: 48px;
+    color:black;
+}
+
+span.kursiv{
+    font-family: "alex";
+    font-size: 56px;
+    display:inline-block;
+    position:relative;
+}
+
+.kursiv::before,
+.kursiv::after {
+	content: "";
+	position: absolute;
+	border-top: 1px solid black;
+	top: 50%;
+	width: 2000px;
+}
+.kursiv::before {
+	margin-right: 15px;
+	right: 100%;
+}
+.kursiv::after {
+	margin-left: 15px;
+	left: 100%;
+}
+
+
+.btn-primary{
+    background-color: transparent;
+    color:black;
+    border-color:black;
+    width:250px;
+    border-radius: 0;
+    margin:20px;
+}
