@@ -25,7 +25,11 @@ app.get('/feed', function(req, res) {
 
 // Verlinkung profile page
 app.get('/profile', function(req, res) {
-    res.render('pages/profile');
+    res.render('pages/profile',{
+        username: "User",
+        entry: "Some entry: a text or a pic",
+        suggestions: "# suggestion 1, suggestion2 oder no suggestions"
+    });
 });
 
 app.get('css', function(req, res){
