@@ -22,9 +22,12 @@ ul{
     color: lightgrey;
 }
 
-a{
-   color:lightgrey;
+span.leftnav{
     margin-left: 20px; 
+}
+
+a{
+    color:lightgray;
 }
 
 a:hover{
