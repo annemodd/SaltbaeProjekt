@@ -4,50 +4,60 @@
 <html lang="de">
 <head>
     <% include ../partials/head %>
+    <link rel="stylesheet" href="css/sub.css"/>
 </head>
 <body class="container">
 
     <header>
         <% include ../partials/header %>
     </header>
-
     <main>
         <div class="row">
             <div class="col-sm-12">
                 <div class="jumbotron">
-                    <!-- Benutzername des angemeldeten Users < % = benutzername % > -->
-                    <h1>Hallo Benutzer!!!</h1>
-                    <!-- Neue Beiträge erstellen mit Plus-->
-                    <button type="button" class="btn btn-default btn-m">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
-                    </button>
+                    <!-- Greeting for SignedIn User -->
+                    <h1>Hello <%= username %>!!!</h1>
+
                 </div>
             </div>       
         </div>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <!-- Thead-->
-                <thead>
-                    <tr>
-                        <th>Beitrag</th>
-                        <th>Vorschl&auml;ge</th>
-                        <th>Funktionen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <!-- Fuer jeden Eintrag des Benutzer eine Row erstellen-->
-                    <tr>
-                        <td>Text oder Bild</td>
-                        <td>Vorchlag 1, Vorschlag 2 oder Es gibt leider noch keine Vorschl&auml;ge</td>
-                        <td>
-                            <button type="button" class="btn btn-default btn-m">
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div id="entry-list" class="container-fluid">
+            <!-- Empty entry -->
+            <div class="row" style="background: rgba(255,255,255,0.5); border-radius:1em;margin-bottom:2%;">
+                        <p>No entries. Let's get started!!!</p>
+            </div>
+            <!-- Each entry needs a row -->
+            <!-- Text entry -->
+            <div class="row" style="background: rgba(255,255,255,0.5); border-radius:1em;margin-bottom:2%;">
+                    <div class="col-xs-5" style="padding:2%;">
+                        <p><%= entry %></p>
+                    </div>
+                    <div class="col-xs-5">
+                        <p><%= suggestions %></p>
+                    </div>
+                    <div class="col-xs-2">
+                         <!-- Delete entry -->
+                        <button type="button" class="btn btn-default btn-m">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
+                        </button>
+                    </div>
+            </div>
+            <!-- Example image with style -->
+            <div class="row" style="background:rgba(255,255,255,0.5); border-radius:1em;margin-bottom:2%;">
+                    <div class="col-xs-5" style="padding:2%;">
+                        <img class="img-rounded img-responsive" style="padding:0;margin:2% 0"src="https://s-media-cache-ak0.pinimg.com/736x/77/40/e5/7740e5d0745f9661170ca81620bd548e.jpg"/>
+                    </div>
+                    <div class="col-xs-5">
+                        <p>No suggestions.</p>
+                    </div>
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-default btn-m">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
+                        </button>
+                    </div>
+            </div>    
         </div>
+        <% include ../partials/entryform %>
     </main>
     
 </body>
