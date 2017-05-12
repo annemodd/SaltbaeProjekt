@@ -1,12 +1,28 @@
 //express
 const express = require('express');
 const app = express();
+//package for uploading pics
 const multer  =   require('multer');
+//package for login
+const sso = require('@akoenig/sso');
+
+const restricted = sso(app, {
+    facebook: {
+        clientID        : '1162182387237775',
+        clientSecret    : '0417ba8a1f0392dc48c5aba3eaa41dea',
+        callbackURL     : 'http://localhost:8080/auth/facebook/callback',
+        successRedirect: "/profile",
+        failureRedirect: "/",
+    },
+});
+
 
 app.use(express.static("./assets"));
 
 // set view
 app.set('view engine', 'ejs');
+
+
 
 
 // Verlinkung index page 
@@ -24,14 +40,15 @@ app.get('/feed', function(req, res) {
     res.render('pages/feed');
 });
 
-// Verlinkung profile page
-app.get('/profile', function(req, res) {
+//Link to profile page only for logged in users
+app.get('/profile', restricted(), function(req, res) {
     res.render('pages/profile',{
         username: "User",
         entry: "Some entry: a text or a pic",
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
 });
+
 
 //Handle new entry
 app.post('/profile', function(req, res) {
