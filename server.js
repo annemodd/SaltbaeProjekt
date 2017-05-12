@@ -2,6 +2,20 @@
 const express = require('express');
 const app = express();
 const multer  =   require('multer');
+const uploading = multer(
+  { 
+    dest: './uploads', 
+    limits: {
+       fields: 1,
+       files: 1,
+       fileSize: 512000
+    }
+  })
+
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const ObjectId = require('mongodb').ObjectID;
+const url = 'mongodb://localhost:27017/192.168.99.100:32768';
 
 app.use(express.static("./assets"));
 
@@ -57,10 +71,6 @@ app.get('/upload', function(req, res){
     res.render('pages/upload');
 });
 
-app.get('/profile', function(req, res){
-    res.render('pages/profile');
-});
-
 app.get('/logout', function(req, res){
     res.render('pages/logout');
 });
@@ -75,25 +85,40 @@ app.get('/loginGoogle', function(req, res){
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, 'pages/uploads');
+    callback(null, './uploads');
   },
   filename: function (req, file, callback) {
-    callback(null, file.fieldname);
+    const originalname = file.originalname;
+    const extension = originalname.split(".");
+    filename = Date.now() + '.' + extension[extension.length-1];
+    callback(null, filename);
   }
 });
-const upload = multer({ storage : storage}).single('userPhoto');
 
-app.get('/',function(req,res){
-      res.sendFile(__dirname);
+app.post('/upload', uploading.single('file'), function (req, res, next) {  
+  const userInput = new userInput ({
+    imageName: req.file.imageName,
+    originalname: req.file.originalname,
+    extension: req.file.extension,
+  })
+  userInput.save(function(err){
+    if (err){console.log(err)}
+    else {
+      res.redirect('pages/upload');
+    }
+  })
 });
 
-app.post('pages/feed',function(req,res){
-    upload(req,res,function(err) {
-        if(err) {
-            return res.end("Error uploading image!");
-        }
-        res.end("upload image");
-    });
+const mongoose = require('mongoose');
+
+const inputSchema = new mongoose.Schema({
+  fimageName: String,
+  originalname: String,
+  extension: String,
 });
+const userInput = mongoose.model('userInput', inputSchema);
+
+module.exports = userInput;
+
 
 app.listen(8080);
