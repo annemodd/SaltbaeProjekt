@@ -57,8 +57,8 @@ app.get('/upload', function(req, res){
     res.render('pages/upload');
 });
 
-app.get('/user', function(req, res){
-    res.render('pages/user');
+app.get('/profile', function(req, res){
+    res.render('pages/profile');
 });
 
 app.get('/logout', function(req, res){
