@@ -1,0 +1,54 @@
+<!-- views/pages/profile.ejs -->
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="jumbotron">
+                    <!-- Benutzername des angemeldeten Users < % = benutzername % > -->
+                    <h1>Hallo Benutzer!!!</h1>
+                    <!-- Neue Beiträge erstellen mit Plus-->
+                    <button type="button" class="btn btn-default btn-m">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+                    </button>
+                </div>
+            </div>       
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <!-- Thead-->
+                <thead>
+                    <tr>
+                        <th>Beitrag</th>
+                        <th>Vorschl&auml;ge</th>
+                        <th>Funktionen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <!-- Fuer jeden Eintrag des Benutzer eine Row erstellen-->
+                    <tr>
+                        <td>Text oder Bild</td>
+                        <td>Vorchlag 1, Vorschlag 2 oder Es gibt leider noch keine Vorschl&auml;ge</td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-m">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+</body>
+</html>
