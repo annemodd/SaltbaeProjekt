@@ -12,8 +12,6 @@
 body {
     background-image: url("../img/background.jpg");
     font-family: verdana,monospace;
-    margin:0px;
-    padding:0px;
 }
 
 nav {
@@ -48,11 +46,6 @@ li.title{
     margin-left:20px;
 }
 
-div.container-fluid{
-    width:100%;
-    margin:0;
-    padding:0;
-}
 
 div.login{
     margin: 20px;
@@ -108,4 +101,8 @@ span.kursiv{
     width:250px;
     border-radius: 0;
     margin:20px;
+}
+
+a.button{
+    margin:0;
 }
