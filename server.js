@@ -1,21 +1,18 @@
 //express
 const express = require('express');
 const app = express();
-const multer  =   require('multer');
-const uploading = multer(
-  { 
-    dest: './uploads', 
-    limits: {
-       fields: 1,
-       files: 1,
-       fileSize: 512000
-    }
-  })
 
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
-const ObjectId = require('mongodb').ObjectID;
-const url = 'mongodb://localhost:27017/192.168.99.100:32768';
+
+//const MongoClient = require('mongodb').MongoClient;
+//const assert = require('assert');
+//const ObjectId = require('mongodb').ObjectID;
+//const url = 'mongodb://localhost:27017/192.168.99.100:32768';
+
+const multer  = require('multer');
+var busboy = require('connect-busboy');
+var path = require('path');     //used for file path
+var fs = require('fs-extra');
+
 
 app.use(express.static("./assets"));
 
@@ -83,42 +80,45 @@ app.get('/loginGoogle', function(req, res){
     res.render('pages/loginGoogle');
 });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, './uploads');
-  },
-  filename: function (req, file, callback) {
-    const originalname = file.originalname;
-    const extension = originalname.split(".");
-    filename = Date.now() + '.' + extension[extension.length-1];
-    callback(null, filename);
-  }
-});
 
-app.post('/upload', uploading.single('file'), function (req, res, next) {  
-  const userInput = new userInput ({
-    imageName: req.file.imageName,
-    originalname: req.file.originalname,
-    extension: req.file.extension,
-  })
-  userInput.save(function(err){
-    if (err){console.log(err)}
-    else {
-      res.redirect('pages/upload');
+
+/*var upload = multer({ dest: './uploads' });
+
+app.post('/uploads',upload.single('profileimage'),function(req,res,next){
+
+    if (req.file) {
+        console.log('Uploading File');
+        var profileImageOriginlName=req.file.originalname;
+        var profileImageName=req.file.name;
+        var profileImageMime=req.file.mimetype;
+        var profileImagePath=req.file.path;
+        var profileImageExt=req.file.extension;
+        var profileImageSize=req.file.size;
     }
-  })
-});
+    else
+    {
+        var profileImageName='noimage.png';
+    }
 
-const mongoose = require('mongoose');
+});*/
 
-const inputSchema = new mongoose.Schema({
-  fimageName: String,
-  originalname: String,
-  extension: String,
-});
-const userInput = mongoose.model('userInput', inputSchema);
+app.use(busboy());
+app.use(express.static(path.join(__dirname, 'public')));
 
-module.exports = userInput;
+app.route('/feed')
+    .post(function (req, res, next) {
 
-
+        var fstream;
+        req.pipe(req.busboy);
+        req.busboy.on('file', function (fieldname, file, filename) {
+            console.log("Uploading: " + filename);
+            fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
+            file.pipe(fstream);
+            fstream.on('close', function () {    
+                console.log("Finished uploading " + filename);              
+                res.redirect('/feed');      
+            });
+        });
+    });
+    
 app.listen(8080);
