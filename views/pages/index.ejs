@@ -1,28 +1,27 @@
 <!-- views/pages/index.ejs -->
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <% include ../bootstrap/head %>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
 </head>
 <body class="container">
-
-    <header>
-        <% include ../bootstrap/header %>
-    </header>
-
-    <main>
-        <div class="jumbotron">
-            <h1>#me</h1>
-            <p>Lade deine Bilder hoch und wir helfen dir passende Hashtags zu finden</p>
-        </div>
-    </main>
-
-    <ul class="upload upload-right">
-        <button type="button" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-camera" aria-hidden="true" ></span>
-        </button>    
+<nav>
+<div class="container-fluid">
+   <ul class="nav navbar-nav">
+            <li class="title">#me</li>
+            <li><a href="about">ABOUT</a></li>
     </ul>
-    
+    </div>
+</nav>  
+    <div class="login">
+            <p>JOIN THE COMMUNITY<br>
+            <span class="kursiv">today</span><br>
+            AND GET INSPIRED.</p>
+            <a href="loginFa" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a> <br>
+            <a href="loginGoogle" class="btn btn-primary"><span class="fa fa-google-plus"></span> Google+</a>
+   </div>
 </body>
-</html>
+</html> 

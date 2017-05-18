@@ -1,0 +1,25 @@
+<!-- views/pages/feed.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="css/sub.css"/>
+</head>
+
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>  
+
+    <form id = "uploadForm"
+        enctype   =  "multipart/form-data"
+        action    =  "feed"
+        method    =  "post">
+        <input type="file" name="userImage" />
+        <input type="submit" value="upload Image" name="submit">
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!-- views/pages/feed.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="css/sub.css"/>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>  
+        <div class="feed">
+            <figure>
+                <img src="img/test.png"/>
+            </figure>
+            <form>
+            <label>#
+                <input type="text" name="textfeld"/>
+            </label>
+            </form>
+            <hr/>
+            <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            </p>
+            <form>
+            <label>#
+                <input type="text" name="textfeld"/>
+            </label>
+            </form>
+            <hr/>
+             <figure>
+                <img src="img/test1.png"/>
+            </figure>
+            <form>
+            <label>#
+                <input type="text" name="textfeld"/>
+            </label>
+            </form>
+        </div>
+    </main>
+
+     <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>
+     <script src="javascripts/upload.js"></script>
+
+
+    
+</body>
+</html>
