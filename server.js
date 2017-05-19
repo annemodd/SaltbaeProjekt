@@ -42,9 +42,10 @@ app.get('/feed', function(req, res) {
 
 //Link to profile page only for logged in users
 app.get('/profile', restricted(), function(req, res) {
+    const displayname = req.user.displayName;
     //req.user
     res.render('pages/profile',{
-        username: "Benutzername",
+        username: `"${displayname}"`,
         entry: "Some entry: a text or a pic",
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
