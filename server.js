@@ -16,6 +16,8 @@ const restricted = sso(app, {
     },
 });
 
+const logout = require('express-passport-logout');
+
 
 app.use(express.static("./assets"));
 
@@ -77,7 +79,8 @@ app.get('/upload', function(req, res){
 });
 
 app.get('/logout', function(req, res){
-    res.render('pages/logout');
+    req.session.destroy();
+    res.render('pages/index');
 });
 
 app.get('/loginFa', function(req, res){
