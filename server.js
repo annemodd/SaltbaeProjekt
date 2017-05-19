@@ -42,8 +42,9 @@ app.get('/feed', function(req, res) {
 
 //Link to profile page only for logged in users
 app.get('/profile', restricted(), function(req, res) {
+    //req.user
     res.render('pages/profile',{
-        username: "User",
+        username: "Benutzername",
         entry: "Some entry: a text or a pic",
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
@@ -74,10 +75,6 @@ app.get('/upload', function(req, res){
     res.render('pages/upload');
 });
 
-app.get('/profile', function(req, res){
-    res.render('pages/profile');
-});
-
 app.get('/logout', function(req, res){
     res.render('pages/logout');
 });
@@ -90,6 +87,7 @@ app.get('/loginGoogle', function(req, res){
     res.render('pages/loginGoogle');
 });
 
+//Uploads
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, 'pages/uploads');
