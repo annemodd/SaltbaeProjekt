@@ -14,6 +14,13 @@ const restricted = sso(app, {
         successRedirect: "/profile",
         failureRedirect: "/",
     },
+    google: {
+        'clientID'      : '1051420667057-sg4kvclat1lbv9ea50e08m915tpiu7o3.apps.googleusercontent.com',
+        'clientSecret'  : 'xaJjnnYBYTtMw6Knf3dKjeX7',
+        'callbackURL'   : 'http://localhost:8080/auth/google/callback',
+        successRedirect: "/profile",
+        failureRedirect: "/",
+    }
 });
 
 
@@ -80,13 +87,6 @@ app.get('/logout', function(req, res){
     res.render('pages/logout');
 });
 
-app.get('/loginFa', function(req, res){
-    res.render('pages/loginFa');
-});
-
-app.get('/loginGoogle', function(req, res){
-    res.render('pages/loginGoogle');
-});
 
 //Uploads
 const storage = multer.diskStorage({
