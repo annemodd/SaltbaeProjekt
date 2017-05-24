@@ -3,18 +3,24 @@ const express = require('express');
 const app = express();
 
 
-//const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 //const assert = require('assert');
 //const ObjectId = require('mongodb').ObjectID;
 //const url = 'mongodb://localhost:27017/192.168.99.100:32768';
+
 
 const multer  = require('multer');
 var busboy = require('connect-busboy');
 var path = require('path');     //used for file path
 var fs = require('fs-extra');
 
+const upload = multer({
+    dest: './uploads',
+});
 
 app.use(express.static("./assets"));
+app.use('/uploads', express.static('./uploads'));
+
 
 // set view
 app.set('view engine', 'ejs');
@@ -102,23 +108,37 @@ app.post('/uploads',upload.single('profileimage'),function(req,res,next){
 
 });*/
 
-app.use(busboy());
+/*app.use(busboy());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.route('/feed')
     .post(function (req, res, next) {
 
-        var fstream;
+        
         req.pipe(req.busboy);
-        req.busboy.on('file', function (fieldname, file, filename) {
+        req.busboy.on('photo', function (fieldname, file, filename) {
             console.log("Uploading: " + filename);
             fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
             file.pipe(fstream);
+            persistPhoto(filename, size, MimeType);
             fstream.on('close', function () {    
                 console.log("Finished uploading " + filename);              
                 res.redirect('/feed');      
             });
         });
-    });
+    });*/
+
+
+app.post('/upload', upload.single('photo'), (req, res)=> {
+    const {filename, mimetype, size} = req.file;
+    
+    persistPhoto(filename, mimetype,size).
+        then(() =>
+            res.redirect('/feed')
+        );
+});
+
+
+
     
 app.listen(8080);
