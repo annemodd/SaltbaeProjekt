@@ -57,7 +57,7 @@ app.get('/profile', restricted(), function(req, res) {
 //Handle new entry
 app.post('/profile', function(req, res) {
      res.render('pages/profile',{
-        username: "User",
+        username: `"${displayname}"`,
         entry: "Some entry: a text or a pic",
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
