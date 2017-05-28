@@ -14,6 +14,20 @@ const restricted = sso(app, {
         successRedirect: "/profile",
         failureRedirect: "/",
     },
+    local: {
+        verify: (username, password, callback) => {
+            //DB name!
+            const user = YOUR_DATABASE.findUserByUsername(username);
+ 
+            if (!user || user.password !== password) {
+                return callback(null, false);
+            }
+ 
+            callback(null, user);
+        },
+        successRedirect: "/profile",
+        failureRedirect: "/",
+    },
 });
 
 const logout = require('express-passport-logout');
@@ -53,15 +67,6 @@ app.get('/profile', restricted(), function(req, res) {
     });
 });
 
-
-//Handle new entry
-app.post('/profile', function(req, res) {
-     res.render('pages/profile',{
-        username: `"${displayname}"`,
-        entry: "Some entry: a text or a pic",
-        suggestions: "# suggestion 1, suggestion2 oder no suggestions"
-    });
-});
 /*
 app.post('/profile', (req,res) => {
     res.render('pages/successful', {
@@ -83,13 +88,6 @@ app.get('/logout', function(req, res){
     res.render('pages/index');
 });
 
-app.get('/loginFa', function(req, res){
-    res.render('pages/loginFa');
-});
-
-app.get('/loginGoogle', function(req, res){
-    res.render('pages/loginGoogle');
-});
 
 //Uploads
 const storage = multer.diskStorage({
