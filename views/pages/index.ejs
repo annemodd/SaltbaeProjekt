@@ -8,20 +8,35 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
 </head>
 <body class="container">
-<nav>
-<div class="container-fluid">
-   <ul class="nav navbar-nav">
+    <nav>
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
             <li class="title">#me</li>
             <li><a href="about">ABOUT</a></li>
-    </ul>
+        </ul>
     </div>
-</nav>  
+    </nav>  
     <div class="login">
             <p>JOIN THE COMMUNITY<br>
             <span class="kursiv">today</span><br>
             AND GET INSPIRED.</p>
             <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a> <br>
             <a href="loginGoogle" class="btn btn-primary"><span class="fa fa-google-plus"></span> Google+</a>
+            <form action="/auth/local" method="post">
+                <input type="text" name="username">
+                <input type="password" name="password">
+                <input type="submit" value="Login">
+            </form>
+            <p>REGISTER<br>
+            <span class="kursiv">now</span></p>
+            <form action="/" method="post">
+                <input type="text" name="firstname" placeholder="Firstname">
+                <input type="text" name="surname" placeholder="Surname">
+                <input type="text" name="username" placeholder="Username">
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="New password">
+                <input type="submit" value="Register">
+            </form>
    </div>
 </body>
 </html> 

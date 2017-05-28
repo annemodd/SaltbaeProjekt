@@ -58,7 +58,7 @@ app.get('/profile', restricted(), function(req, res) {
 app.post('/profile', function(req, res) {
      res.render('pages/profile',{
         username: "User",
-        entry: "Some entry: a text or a pic",
+        textentry: "Some entry: a text or a pic",
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
 });
