@@ -2,7 +2,7 @@
   "name": "hausaufgabe",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.17.1",
+    "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "connect-busboy": "0.0.2",
     "ejs": "^1.0.0",

@@ -10,9 +10,14 @@ const MongoClient = require('mongodb').MongoClient;
 
 
 const multer  = require('multer');
-var busboy = require('connect-busboy');
+/*var busboy = require('connect-busboy');
 var path = require('path');     //used for file path
-var fs = require('fs-extra');
+var fs = require('fs-extra');*/
+
+const { persistPhoto } = require('./lib/services/persister');
+//const { findAllPhotos } = require('./lib/services/reader');
+
+const bodyparser = require('body-parser');
 
 const upload = multer({
     dest: './uploads',
@@ -20,6 +25,7 @@ const upload = multer({
 
 app.use(express.static("./assets"));
 app.use('/uploads', express.static('./uploads'));
+app.use(bodyparser.urlencoded({ extended: true }));
 
 
 // set view
@@ -38,7 +44,9 @@ app.get('/about', function(req, res) {
 
 // Verlinkung feed page
 app.get('/feed', function(req, res) {
-    res.render('pages/feed');
+    //findAllPhotos()
+      //  .then((photos) => 
+        res.render('pages/feed');
 });
 
 // Verlinkung profile page
@@ -129,8 +137,30 @@ app.route('/feed')
     });*/
 
 
+/*app.use(busboy());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/upload', upload.single('photo'),(req, res) => {
+
+        
+        req.pipe(req.busboy);
+        req.busboy.on('photo', function (fieldname, file, filename) {
+            console.log("Uploading: " + filename);
+            fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
+            file.pipe(fstream);
+            persistPhoto(filename, size, MimeType);
+            fstream.on('close', function () {    
+                console.log("Finished uploading " + filename);              
+                res.redirect('/feed');      
+            });
+        });
+    });*/
+
 app.post('/upload', upload.single('photo'), (req, res)=> {
-    const {filename, mimetype, size} = req.file;
+   // console.log(req.file);
+   // res.send('OK');
+
+   const {filename, mimetype, size} = req.file;
     
     persistPhoto(filename, mimetype,size).
         then(() =>
