@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 //package for uploading pics
 const multer  =   require('multer');
+
+const{ findUserPosts } = require('./lib/services/reader'); 
 //package for login
 const sso = require('@akoenig/sso');
 
@@ -48,7 +50,7 @@ app.get('/profile', restricted(), function(req, res) {
     //req.user
     res.render('pages/profile',{
         username: `"${displayname}"`,
-        entry: "Some entry: a text or a pic",
+        posts,
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
 });
@@ -56,19 +58,16 @@ app.get('/profile', restricted(), function(req, res) {
 
 //Handle new entry
 app.post('/profile', function(req, res) {
-     res.render('pages/profile',{
-        username: "User",
-        textentry: "Some entry: a text or a pic",
-        suggestions: "# suggestion 1, suggestion2 oder no suggestions"
-    });
+    findUserPosts()
+    .then((posts) =>
+        res.render('pages/profile',{
+            username: `"${displayname}"`,
+            posts,
+            suggestions: "# suggestion 1, suggestion2 oder no suggestions"
+        })
+    );
 });
-/*
-app.post('/profile', (req,res) => {
-    res.render('pages/successful', {
-        message:'Thank you! Your new entry has been successfully uploaded!'
-    });
-});
-*/
+
 
 app.get('css', function(req, res){
     res.render('pages/css/main.css');
