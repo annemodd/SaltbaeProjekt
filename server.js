@@ -1,31 +1,24 @@
 //express
 const express = require('express');
-const app = express();
-
-
-const MongoClient = require('mongodb').MongoClient;
-//const assert = require('assert');
-//const ObjectId = require('mongodb').ObjectID;
-//const url = 'mongodb://localhost:27017/192.168.99.100:32768';
-
-
+const bodyparser = require('body-parser');
 const multer  = require('multer');
 /*var busboy = require('connect-busboy');
 var path = require('path');     //used for file path
 var fs = require('fs-extra');*/
 
-const { persistPhoto } = require('./lib/services/persister');
+const app = express();
+
+
+const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
 //const { findAllPhotos } = require('./lib/services/reader');
 
-const bodyparser = require('body-parser');
 
-const upload = multer({
-    dest: './uploads',
-});
 
-app.use(express.static("./assets"));
-app.use('/uploads', express.static('./uploads'));
+const upload = multer({ dest: `./uploads`});
 app.use(bodyparser.urlencoded({ extended: true }));
+app.use(express.static('./assets'));
+app.use('/uploads', express.static('./uploads'));
+
 
 
 // set view
@@ -66,13 +59,7 @@ app.post('/profile', function(req, res) {
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
 });
-/*
-app.post('/profile', (req,res) => {
-    res.render('pages/successful', {
-        message:'Thank you! Your new entry has been successfully uploaded!'
-    });
-});
-*/
+
 
 app.get('css', function(req, res){
     res.render('pages/css/main.css');
@@ -84,14 +71,6 @@ app.get('/upload', function(req, res){
 
 app.get('/logout', function(req, res){
     res.render('pages/logout');
-});
-
-app.get('/loginFa', function(req, res){
-    res.render('pages/loginFa');
-});
-
-app.get('/loginGoogle', function(req, res){
-    res.render('pages/loginGoogle');
 });
 
 
@@ -157,18 +136,13 @@ app.post('/upload', upload.single('photo'),(req, res) => {
     });*/
 
 app.post('/upload', upload.single('photo'), (req, res)=> {
-   // console.log(req.file);
-   // res.send('OK');
-
    const {filename, mimetype, size} = req.file;
     
-    persistPhoto(filename, mimetype,size).
+    persistPhoto(filename, mimetype, size).
         then(() =>
             res.redirect('/feed')
         );
 });
-
-
 
     
 app.listen(8080);
