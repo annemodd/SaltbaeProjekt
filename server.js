@@ -20,25 +20,16 @@ const restricted = sso(app, {
 });
 
 const logout = require('express-passport-logout');
-
-
 const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
-//const { findAllPhotos } = require('./lib/services/reader');
-
-
+const { findAllPosts } = require('./lib/services/reader');
 
 const upload = multer({ dest: `./uploads`});
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('./assets'));
 app.use('/uploads', express.static('./uploads'));
 
-
-
 // set view
 app.set('view engine', 'ejs');
-
-
-
 
 // Verlinkung index page 
 app.get('/', function(req, res) {
@@ -51,10 +42,14 @@ app.get('/about',restricted(), function(req, res) {
 });
 
 // Verlinkung feed page
-app.get('/feed', restricted(), function(req, res) {
-    //findAllPhotos()
-      //  .then((photos) => 
-        res.render('pages/feed');
+
+app.get('/feed', (req, res)=>{
+    findAllPosts()
+        .then((posts) => 
+        res.render('pages/feed',{
+            posts
+        }));
+
 });
 
 //Link to profile page only for logged in users
@@ -72,7 +67,6 @@ app.get('/profile', restricted(), function(req, res) {
     });
 });
 
-
 //Handle new entry
 app.post('/profile', restricted(), function(req, res) {
      res.render('pages/profile',{
@@ -81,7 +75,6 @@ app.post('/profile', restricted(), function(req, res) {
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
 });
-
 
 app.get('css', function(req, res){
     res.render('pages/css/main.css');
@@ -106,5 +99,4 @@ app.post('/upload', upload.single('photo'), (req, res)=> {
 
 });
 
-    
 app.listen(8080);
