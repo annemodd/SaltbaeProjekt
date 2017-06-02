@@ -14,8 +14,9 @@
 
     <main>  
         <div class="feed">
-    
-
+            <% posts.forEach(function(post){ %>
+                <img src="uploads/<%= post.filename %>">
+            <% }) %>
         </div>
     </main>
 </body>
