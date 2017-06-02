@@ -1,12 +1,28 @@
 //express
 const express = require('express');
 const bodyparser = require('body-parser');
+//package for uploading pics
 const multer  = require('multer');
 /*var busboy = require('connect-busboy');
 var path = require('path');     //used for file path
 var fs = require('fs-extra');*/
 
 const app = express();
+
+//package for login
+const sso = require('@akoenig/sso');
+
+const restricted = sso(app, {
+    facebook: {
+        clientID        : '1162182387237775',
+        clientSecret    : '0417ba8a1f0392dc48c5aba3eaa41dea',
+        callbackURL     : 'http://localhost:8080/auth/facebook/callback',
+        successRedirect: "/profile",
+        failureRedirect: "/",
+    },
+});
+
+const logout = require('express-passport-logout');
 
 
 const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
@@ -23,6 +39,8 @@ app.use('/uploads', express.static('./uploads'));
 
 // set view
 app.set('view engine', 'ejs');
+
+
 
 
 // Verlinkung index page 
@@ -42,14 +60,17 @@ app.get('/feed', function(req, res) {
         res.render('pages/feed');
 });
 
-// Verlinkung profile page
-app.get('/profile', function(req, res) {
+//Link to profile page only for logged in users
+app.get('/profile', restricted(), function(req, res) {
+    const displayname = req.user.displayName;
+    //req.user
     res.render('pages/profile',{
-        username: "User",
+        username: `"${displayname}"`,
         entry: "Some entry: a text or a pic",
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
 });
+
 
 //Handle new entry
 app.post('/profile', function(req, res) {
@@ -70,9 +91,9 @@ app.get('/upload', function(req, res){
 });
 
 app.get('/logout', function(req, res){
-    res.render('pages/logout');
+    req.session.destroy();
+    res.render('pages/index');
 });
-
 
 
 /*var upload = multer({ dest: './uploads' });
@@ -142,6 +163,7 @@ app.post('/upload', upload.single('photo'), (req, res)=> {
         then(() =>
             res.redirect('/feed')
         );
+
 });
 
     
