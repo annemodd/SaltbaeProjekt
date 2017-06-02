@@ -3,9 +3,6 @@ const express = require('express');
 const bodyparser = require('body-parser');
 //package for uploading pics
 const multer  = require('multer');
-/*var busboy = require('connect-busboy');
-var path = require('path');     //used for file path
-var fs = require('fs-extra');*/
 
 const app = express();
 
@@ -40,17 +37,19 @@ app.get('/', function(req, res) {
 });
 
 // Verlinkung about page
-app.get('/about', function(req, res) {
+app.get('/about',restricted(), function(req, res) {
     res.render('pages/about');
 });
 
 // Verlinkung feed page
+
 app.get('/feed', (req, res)=>{
     findAllPosts()
         .then((posts) => 
         res.render('pages/feed',{
             posts
         }));
+
 });
 
 //Link to profile page only for logged in users
@@ -65,7 +64,7 @@ app.get('/profile', restricted(), function(req, res) {
 });
 
 //Handle new entry
-app.post('/profile', function(req, res) {
+app.post('/profile', restricted(), function(req, res) {
      res.render('pages/profile',{
         username: "User",
         entry: "Some entry: a text or a pic",
