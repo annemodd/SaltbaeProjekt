@@ -87,12 +87,12 @@ app.get('/upload', function(req, res){
     res.render('pages/upload');
 });
 
-app.get('/logout',restricted(), function(req, res){
+app.get('/logout', function(req, res){
     req.session.destroy();
     res.render('pages/index');
 });
 
-app.post('/upload', upload.single('photo'),restricted(), (req, res)=> {
+app.post('/upload', upload.single('photo'), (req, res)=> {
    const {filename, mimetype, size} = req.file;
     
     persistPhoto(filename, mimetype, size).
