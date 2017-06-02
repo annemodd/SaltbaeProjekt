@@ -3,9 +3,6 @@ const express = require('express');
 const bodyparser = require('body-parser');
 //package for uploading pics
 const multer  = require('multer');
-/*var busboy = require('connect-busboy');
-var path = require('path');     //used for file path
-var fs = require('fs-extra');*/
 
 const app = express();
 
@@ -49,12 +46,12 @@ app.get('/', function(req, res) {
 });
 
 // Verlinkung about page
-app.get('/about', function(req, res) {
+app.get('/about',restricted(), function(req, res) {
     res.render('pages/about');
 });
 
 // Verlinkung feed page
-app.get('/feed', function(req, res) {
+app.get('/feed', restricted(), function(req, res) {
     //findAllPhotos()
       //  .then((photos) => 
         res.render('pages/feed');
@@ -73,7 +70,7 @@ app.get('/profile', restricted(), function(req, res) {
 
 
 //Handle new entry
-app.post('/profile', function(req, res) {
+app.post('/profile', restricted(), function(req, res) {
      res.render('pages/profile',{
         username: "User",
         entry: "Some entry: a text or a pic",
@@ -90,73 +87,12 @@ app.get('/upload', function(req, res){
     res.render('pages/upload');
 });
 
-app.get('/logout', function(req, res){
+app.get('/logout',restricted(), function(req, res){
     req.session.destroy();
     res.render('pages/index');
 });
 
-
-/*var upload = multer({ dest: './uploads' });
-
-app.post('/uploads',upload.single('profileimage'),function(req,res,next){
-
-    if (req.file) {
-        console.log('Uploading File');
-        var profileImageOriginlName=req.file.originalname;
-        var profileImageName=req.file.name;
-        var profileImageMime=req.file.mimetype;
-        var profileImagePath=req.file.path;
-        var profileImageExt=req.file.extension;
-        var profileImageSize=req.file.size;
-    }
-    else
-    {
-        var profileImageName='noimage.png';
-    }
-
-});*/
-
-/*app.use(busboy());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.route('/feed')
-    .post(function (req, res, next) {
-
-        
-        req.pipe(req.busboy);
-        req.busboy.on('photo', function (fieldname, file, filename) {
-            console.log("Uploading: " + filename);
-            fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
-            file.pipe(fstream);
-            persistPhoto(filename, size, MimeType);
-            fstream.on('close', function () {    
-                console.log("Finished uploading " + filename);              
-                res.redirect('/feed');      
-            });
-        });
-    });*/
-
-
-/*app.use(busboy());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.post('/upload', upload.single('photo'),(req, res) => {
-
-        
-        req.pipe(req.busboy);
-        req.busboy.on('photo', function (fieldname, file, filename) {
-            console.log("Uploading: " + filename);
-            fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
-            file.pipe(fstream);
-            persistPhoto(filename, size, MimeType);
-            fstream.on('close', function () {    
-                console.log("Finished uploading " + filename);              
-                res.redirect('/feed');      
-            });
-        });
-    });*/
-
-app.post('/upload', upload.single('photo'), (req, res)=> {
+app.post('/upload', upload.single('photo'),restricted(), (req, res)=> {
    const {filename, mimetype, size} = req.file;
     
     persistPhoto(filename, mimetype, size).
