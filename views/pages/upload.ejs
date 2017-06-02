@@ -13,12 +13,11 @@
         <% include ../partials/header %>
     </header>  
 
-    <form id = "uploadForm"
-        enctype   =  "multipart/form-data"
-        action    =  "/feed"
-        method    =  "post">
-        <input type="file" name="userImage" />
-        <input type="submit" value="upload Image" name="submit">
+    <form action="/upload"
+        method="POST"
+        enctype="multipart/form-data">
+        <input name="photo" type="file">
+        <button type="submit">Upload</button>
     </form>
 
     <div>

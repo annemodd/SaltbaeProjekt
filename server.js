@@ -1,8 +1,14 @@
 //express
 const express = require('express');
-const app = express();
+const bodyparser = require('body-parser');
 //package for uploading pics
-const multer  =   require('multer');
+const multer  = require('multer');
+/*var busboy = require('connect-busboy');
+var path = require('path');     //used for file path
+var fs = require('fs-extra');*/
+
+const app = express();
+
 //package for login
 const sso = require('@akoenig/sso');
 
@@ -19,7 +25,17 @@ const restricted = sso(app, {
 const logout = require('express-passport-logout');
 
 
-app.use(express.static("./assets"));
+const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
+//const { findAllPhotos } = require('./lib/services/reader');
+
+
+
+const upload = multer({ dest: `./uploads`});
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(express.static('./assets'));
+app.use('/uploads', express.static('./uploads'));
+
+
 
 // set view
 app.set('view engine', 'ejs');
@@ -39,7 +55,9 @@ app.get('/about', function(req, res) {
 
 // Verlinkung feed page
 app.get('/feed', function(req, res) {
-    res.render('pages/feed');
+    //findAllPhotos()
+      //  .then((photos) => 
+        res.render('pages/feed');
 });
 
 //Link to profile page only for logged in users
@@ -62,13 +80,7 @@ app.post('/profile', function(req, res) {
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
     });
 });
-/*
-app.post('/profile', (req,res) => {
-    res.render('pages/successful', {
-        message:'Thank you! Your new entry has been successfully uploaded!'
-    });
-});
-*/
+
 
 app.get('css', function(req, res){
     res.render('pages/css/main.css');
@@ -83,36 +95,76 @@ app.get('/logout', function(req, res){
     res.render('pages/index');
 });
 
-app.get('/loginFa', function(req, res){
-    res.render('pages/loginFa');
+
+/*var upload = multer({ dest: './uploads' });
+
+app.post('/uploads',upload.single('profileimage'),function(req,res,next){
+
+    if (req.file) {
+        console.log('Uploading File');
+        var profileImageOriginlName=req.file.originalname;
+        var profileImageName=req.file.name;
+        var profileImageMime=req.file.mimetype;
+        var profileImagePath=req.file.path;
+        var profileImageExt=req.file.extension;
+        var profileImageSize=req.file.size;
+    }
+    else
+    {
+        var profileImageName='noimage.png';
+    }
+
+});*/
+
+/*app.use(busboy());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.route('/feed')
+    .post(function (req, res, next) {
+
+        
+        req.pipe(req.busboy);
+        req.busboy.on('photo', function (fieldname, file, filename) {
+            console.log("Uploading: " + filename);
+            fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
+            file.pipe(fstream);
+            persistPhoto(filename, size, MimeType);
+            fstream.on('close', function () {    
+                console.log("Finished uploading " + filename);              
+                res.redirect('/feed');      
+            });
+        });
+    });*/
+
+
+/*app.use(busboy());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/upload', upload.single('photo'),(req, res) => {
+
+        
+        req.pipe(req.busboy);
+        req.busboy.on('photo', function (fieldname, file, filename) {
+            console.log("Uploading: " + filename);
+            fstream = fs.createWriteStream(__dirname + '/uploads/' + filename);
+            file.pipe(fstream);
+            persistPhoto(filename, size, MimeType);
+            fstream.on('close', function () {    
+                console.log("Finished uploading " + filename);              
+                res.redirect('/feed');      
+            });
+        });
+    });*/
+
+app.post('/upload', upload.single('photo'), (req, res)=> {
+   const {filename, mimetype, size} = req.file;
+    
+    persistPhoto(filename, mimetype, size).
+        then(() =>
+            res.redirect('/feed')
+        );
+
 });
 
-app.get('/loginGoogle', function(req, res){
-    res.render('pages/loginGoogle');
-});
-
-//Uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, 'pages/uploads');
-  },
-  filename: function (req, file, callback) {
-    callback(null, file.fieldname);
-  }
-});
-const upload = multer({ storage : storage}).single('userPhoto');
-
-app.get('/',function(req,res){
-      res.sendFile(__dirname);
-});
-
-app.post('pages/feed',function(req,res){
-    upload(req,res,function(err) {
-        if(err) {
-            return res.end("Error uploading image!");
-        }
-        res.end("upload image");
-    });
-});
-
+    
 app.listen(8080);
