@@ -22,15 +22,24 @@
             </div>       
         </div>
         <div id="entry-list" class="container-fluid">
-            <!-- Empty entry -->
+            <!-- Empty entry where user is logged in user!!!-->
+            <% if (!posts.length) { %>
             <div class="row" style="background: rgba(255,255,255,0.5); border-radius:1em;margin-bottom:2%;">
                         <p>No entries. Let's get started!!!</p>
             </div>
-            <!-- Each entry needs a row -->
-            <!-- Text entry -->
+            <% } %>
+            <!-- Entry row -->
+            <% posts.forEach(function (post) { %>
             <div class="row" style="background: rgba(255,255,255,0.5); border-radius:1em;margin-bottom:2%;">
                     <div class="col-xs-5" style="padding:2%;">
-                        <p><%= entry %></p>
+                        <% if (post.textentry) { %>
+                            <p><%= post.textentry.text %></p>
+                        <% } else if (post.photo) { %>
+                            <img class="img-rounded img-responsive" style="padding:0;margin:2% 0" src="uploads/<%= post.photo.filename %>">
+                        <% } else {
+                            console.log("Undefinded post");
+                        }%>
+
                     </div>
                     <div class="col-xs-5">
                         <p><%= suggestions %></p>
@@ -42,20 +51,7 @@
                         </button>
                     </div>
             </div>
-            <!-- Example image with style -->
-            <div class="row" style="background:rgba(255,255,255,0.5); border-radius:1em;margin-bottom:2%;">
-                    <div class="col-xs-5" style="padding:2%;">
-                        <img class="img-rounded img-responsive" style="padding:0;margin:2% 0"src="https://s-media-cache-ak0.pinimg.com/736x/77/40/e5/7740e5d0745f9661170ca81620bd548e.jpg"/>
-                    </div>
-                    <div class="col-xs-5">
-                        <p>No suggestions.</p>
-                    </div>
-                    <div class="col-xs-2">
-                        <button type="button" class="btn btn-default btn-m">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
-                        </button>
-                    </div>
-            </div>    
+            <% }) %> 
         </div>
     </main>
     

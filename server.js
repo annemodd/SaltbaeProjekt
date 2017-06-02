@@ -26,7 +26,7 @@ const logout = require('express-passport-logout');
 
 
 const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
-//const { findAllPhotos } = require('./lib/services/reader');
+const { findUserPosts } = require('./lib/services/reader');
 
 
 
@@ -64,11 +64,14 @@ app.get('/feed', function(req, res) {
 app.get('/profile', restricted(), function(req, res) {
     const displayname = req.user.displayName;
     //req.user
-    res.render('pages/profile',{
-        username: `"${displayname}"`,
-        entry: "Some entry: a text or a pic",
-        suggestions: "# suggestion 1, suggestion2 oder no suggestions"
-    });
+    findUserPosts()
+    .then((posts) =>
+        res.render('pages/profile',{
+            username: `"${displayname}"`,
+            suggestions: "#bla,#bla2,#bla3",
+            posts,
+        })
+    );
 });
 
 
