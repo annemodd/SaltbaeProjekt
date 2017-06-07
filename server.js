@@ -99,7 +99,7 @@ app.post('/uploadFile', upload.single('photo'), (req, res) => {
 });
 
 app.post('/uploadText',upload.single('text'), (req, res) => {
-    const inputText = req.body.text;
+    const inputText = req.body.inputText;
 
     persistText(inputText).
         then(() => {
