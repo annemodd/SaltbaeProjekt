@@ -28,6 +28,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('./assets'));
 app.use('/uploads', express.static('./uploads'));
 
+
 // set view
 app.set('view engine', 'ejs');
 
@@ -89,9 +90,13 @@ app.get('/logout', function(req, res){
     res.render('pages/index');
 });
 
-app.post('/uploadFile', upload.single('photo'), (req, res) => {
+app.post('/uploadFile', upload.single('photo'), (req, res, errorHandler) => {
+    if (errorHandler) {
+        return console.log('Ups, something went wrong :(');
+        res.redirect('index');
+}
    const {filename, mimetype, size} = req.file;
-    
+   if(err) return next(err);
     persistPhoto(filename, mimetype, size).
         then(() =>
             res.redirect('/feed')
@@ -100,6 +105,7 @@ app.post('/uploadFile', upload.single('photo'), (req, res) => {
 
 app.post('/uploadText',upload.single('text'), (req, res) => {
     const inputText = req.body.inputText;
+
 
     persistText(inputText).
         then(() => {
