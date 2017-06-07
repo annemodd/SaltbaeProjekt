@@ -89,14 +89,22 @@ app.get('/logout', function(req, res){
     res.render('pages/index');
 });
 
-app.post('/upload', upload.single('photo'), (req, res)=> {
+app.post('/uploadFile', upload.single('photo'), (req, res) => {
    const {filename, mimetype, size} = req.file;
     
     persistPhoto(filename, mimetype, size).
         then(() =>
             res.redirect('/feed')
         );
+});
 
+app.post('/uploadText',upload.single('text'), (req, res) => {
+    const inputText = req.body.text;
+
+    persistText(inputText).
+        then(() => {
+            res.redirect('/feed')
+        });
 });
 
 app.listen(8080);
