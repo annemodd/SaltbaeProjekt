@@ -44,7 +44,7 @@ app.get('/about',restricted(), function(req, res) {
 
 // Verlinkung feed page
 
-app.get('/feed', (req, res)=>{
+app.get('/feed', restricted(), (req, res)=>{
     findAllPosts()
         .then((posts) => 
         res.render('pages/feed',{
@@ -90,13 +90,9 @@ app.get('/logout', function(req, res){
     res.render('pages/index');
 });
 
-app.post('/uploadFile', upload.single('photo'), (req, res, errorHandler) => {
-    if (errorHandler) {
-        return console.log('Ups, something went wrong :(');
-        res.redirect('index');
-}
-   const {filename, mimetype, size} = req.file;
-   if(err) return next(err);
+app.post('/uploadFile', upload.single('photo'), (req, res) => {
+    const {filename, mimetype, size} = req.file;
+    
     persistPhoto(filename, mimetype, size).
         then(() =>
             res.redirect('/feed')
@@ -104,8 +100,7 @@ app.post('/uploadFile', upload.single('photo'), (req, res, errorHandler) => {
 });
 
 app.post('/uploadText',upload.single('text'), (req, res) => {
-    const inputText = req.body.inputText;
-
+     const inputText = req.body.inputText;
 
     persistText(inputText).
         then(() => {
@@ -113,4 +108,10 @@ app.post('/uploadText',upload.single('text'), (req, res) => {
         });
 });
 
-app.listen(8080);
+app.listen(8080, (err) => {
+    if (err) {
+        return console.error(err);
+    }
+
+    console.log(`Saltbae is running ...`);
+});
