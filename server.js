@@ -57,11 +57,9 @@ app.get('/feed', restricted(), (req, res)=>{
 //Link to profile page only for logged in users
 app.get('/profile', restricted(), function(req, res) {
     const displayname = req.user.displayName;
-     persistUser(req.user.displayName, req.user.id).
-        then(() =>
-            res.redirect('/profile')
-        );
-    //req.user
+     persistUser(req.user.displayName, req.user.id);
+    
+
     findUserPosts(req.user.id)
     .then((posts) =>
         res.render('pages/profile',{
@@ -70,6 +68,7 @@ app.get('/profile', restricted(), function(req, res) {
             posts,
         })
     );
+
 });
 
 //Handle new entry
