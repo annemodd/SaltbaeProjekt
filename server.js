@@ -21,7 +21,8 @@ const restricted = sso(app, {
 
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
-const { findAllPosts } = require('./lib/services/reader');
+const { findUserPosts, findAllPosts } = require('./lib/services/reader');
+
 
 const upload = multer({ dest: `./uploads`});
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -56,15 +57,18 @@ app.get('/feed', restricted(), (req, res)=>{
 //Link to profile page only for logged in users
 app.get('/profile', restricted(), function(req, res) {
     const displayname = req.user.displayName;
-     persistUser(req.user.displayName, req.user.id).
-        then(() =>
-           
-    //req.user
-    res.render('pages/profile',{
-        username: `"${displayname}"`,
-        entry: "Some entry: a text or a pic",
-        suggestions: "# suggestion 1, suggestion2 oder no suggestions"
-    }));
+     persistUser(req.user.displayName, req.user.id);
+    
+
+    findUserPosts(req.user.id)
+    .then((posts) =>
+        res.render('pages/profile',{
+            username: `"${displayname}"`,
+            suggestions: "#bla,#bla2,#bla3",
+            posts,
+        })
+    );
+
 });
 
 //Handle new entry
