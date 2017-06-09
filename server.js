@@ -58,14 +58,13 @@ app.get('/profile', restricted(), function(req, res) {
     const displayname = req.user.displayName;
      persistUser(req.user.displayName, req.user.id).
         then(() =>
-            res.redirect('/profile')
-        );
+           
     //req.user
     res.render('pages/profile',{
         username: `"${displayname}"`,
         entry: "Some entry: a text or a pic",
         suggestions: "# suggestion 1, suggestion2 oder no suggestions"
-    });
+    }));
 });
 
 //Handle new entry
