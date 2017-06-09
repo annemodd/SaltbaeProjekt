@@ -21,7 +21,8 @@ const restricted = sso(app, {
 
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
-const { findAllPosts } = require('./lib/services/reader');
+const { findUserPosts, findAllPosts } = require('./lib/services/reader');
+
 
 const upload = multer({ dest: `./uploads`});
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -61,11 +62,14 @@ app.get('/profile', restricted(), function(req, res) {
             res.redirect('/profile')
         );
     //req.user
-    res.render('pages/profile',{
-        username: `"${displayname}"`,
-        entry: "Some entry: a text or a pic",
-        suggestions: "# suggestion 1, suggestion2 oder no suggestions"
-    });
+    findUserPosts(req.user.id)
+    .then((posts) =>
+        res.render('pages/profile',{
+            username: `"${displayname}"`,
+            suggestions: "#bla,#bla2,#bla3",
+            posts,
+        })
+    );
 });
 
 //Handle new entry
