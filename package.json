@@ -3,6 +3,7 @@
   "main": "server.js",
   "dependencies": {
     "@akoenig/sso": "^1.0.0",
+    "authenticate": "^0.1.5",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "ejs": "^1.0.0",

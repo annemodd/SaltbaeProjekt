@@ -64,7 +64,7 @@ app.get('/feed', function(req, res) {
 app.get('/profile', restricted(), function(req, res) {
     const displayname = req.user.displayName;
     //req.user
-    findUserPosts()
+    findUserPosts(req.user.id)
     .then((posts) =>
         res.render('pages/profile',{
             username: `"${displayname}"`,
