@@ -68,9 +68,10 @@ app.get('/profile', restricted(), function(req, res) {
     );
 });
 
-app.get('/delete/:id',function(req,res){
+app.get('/delete/:id',async function(req,res){
     const id = req.params.id;
-    deleteEntry(id);
+    await deleteEntry(id);
+    res.redirect('/profile');
 });
 
 
