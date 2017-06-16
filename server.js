@@ -20,7 +20,7 @@ const restricted = sso(app, {
 });
 
 const logout = require('express-passport-logout');
-const { persistPhoto, persistUser, persistText } = require('./lib/services/persister');
+const { persistPhoto, persistUser, persistText, deleteEntry } = require('./lib/services/persister');
 const { findUserPosts, findAllPosts } = require('./lib/services/reader');
 
 
@@ -58,8 +58,6 @@ app.get('/feed', restricted(), (req, res)=>{
 app.get('/profile', restricted(), function(req, res) {
     const displayname = req.user.displayName;
      persistUser(req.user.displayName, req.user.id);
-    
-
     findUserPosts(req.user.id)
     .then((posts) =>
         res.render('pages/profile',{
@@ -68,17 +66,13 @@ app.get('/profile', restricted(), function(req, res) {
             posts,
         })
     );
-
 });
 
-//Handle new entry
-app.post('/profile', restricted(), function(req, res) {
-     res.render('pages/profile',{
-        username: "User",
-        entry: "Some entry: a text or a pic",
-        suggestions: "# suggestion 1, suggestion2 oder no suggestions"
-    });
+app.get('/delete/:id',function(req,res){
+    const id = req.params.id;
+    deleteEntry(id);
 });
+
 
 app.get('css', function(req, res){
     res.render('pages/css/main.css');
