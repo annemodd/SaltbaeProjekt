@@ -13,11 +13,17 @@
     </header>
 
     <main>  
-        <div class="feed">
-            <% posts.forEach(function(post){ %>
-                <img src="uploads/<%= post.filename %>">
-            <% }) %>
-        </div>
+        <div class=feed>
+            <% posts.forEach(function (post) { %>            
+                <% if (post.textentry) { %>
+                    <p><%= post.textentry.text %></p>
+                <% } else if (post.photo) { %>
+                    <img class="img-rounded img-responsive" style="padding:0;margin:2% 0" src="uploads/<%= post.photo.filename %>">
+                <% } else {
+                    // console.log("Undefinded post");
+                }%>                    
+            <% }) %> 
+        </div>  
     </main>
 </body>
 </html>
