@@ -42,11 +42,17 @@
 
                     </div>
                     <div class="col-xs-5">
-                        <p><%= suggestions %></p>
+                    <% if (post.hashtags.length > 0) {%>
+                        <p><% for (i = 0; i < hashtags.length; i++) { %>
+                            <span>#<%= hashtags[i] %></span>
+                        <%}} else{ <%>
+                            <span>No suggestions</span>
+                        <% } %>
+                        </p>
+                    
                     </div>
                     <div class="col-xs-2">
                          <!-- Delete entry -->
-                         <!-- deleteEntry(post._id)-->
                          <a href="/delete/<%= post._id %>">
                             <p><span class="glyphicon glyphicon-trash" aria-hidden="true" ></span></p>
                         </a>
