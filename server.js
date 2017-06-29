@@ -5,7 +5,7 @@ const bodyparser = require('body-parser');
 const multer  = require('multer');
 
 const app = express();
-
+const ArrayList = require('arraylist');
 //package for login
 const sso = require('@akoenig/sso');
 
@@ -14,14 +14,14 @@ const restricted = sso(app, {
         clientID        : '1162182387237775',
         clientSecret    : '0417ba8a1f0392dc48c5aba3eaa41dea',
         callbackURL     : 'http://localhost:8080/auth/facebook/callback',
-        successRedirect: "/profile",
+        successRedirect: "/feed",
         failureRedirect: "/",
     },
 });
 
 const logout = require('express-passport-logout');
-const { persistPhoto, persistUser, persistText, deleteEntry } = require('./lib/services/persister');
-const { findUserPosts, findAllPosts } = require('./lib/services/reader');
+const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
+const { findUserPosts, findAllPosts , findAllHashtags } = require('./lib/services/reader');
 
 
 const upload = multer({ dest: `./uploads`});
@@ -51,6 +51,11 @@ app.get('/feed', restricted(), (req, res)=>{
         res.render('pages/feed',{
             posts
         }));
+      /* findAllHashtags()
+    .then((hashtags)=>
+        res.render('pages/feed',{
+            hashtags
+        }));*/
 
 });
 
@@ -68,7 +73,7 @@ app.get('/profile', restricted(), function(req, res) {
     );
 });
 
-app.get('/delete/:id',async function(req,res){
+app.get('/delete/:id', async function(req,res){
     const id = req.params.id;
     await deleteEntry(id);
     res.redirect('/profile');
@@ -105,6 +110,13 @@ app.post('/uploadText',upload.single('text'), (req, res) => {
             res.redirect('/feed')
         });
 });
+
+app.post('/feed', upload.single('hashtag'), (req, res) => {
+    const hashtag = req.body.hashtag;
+    const postid = req.params.id;
+    persistHashtag(postid, hashtag).then(()=>res.redirect('/feed'));
+}
+);
 
 app.listen(8080, (err) => {
     if (err) {
