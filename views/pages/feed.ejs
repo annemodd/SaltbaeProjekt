@@ -28,8 +28,9 @@
                     enctype="multipart/form-data">
                 <label for="hashtag">#
                     <input id="hashtag" type="text" name="hashtag"/>
+                    <input id="postid" type="hidden" name="postid" value="<%= post._id %>" />
                 </label>
-                </form>                    
+                </form>                   
             <% }) %> 
         </div>  
     </main>
