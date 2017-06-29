@@ -114,6 +114,7 @@ app.post('/uploadText',upload.single('text'), (req, res) => {
 app.post('/feed', upload.single('hashtag'), (req, res) => {
     const hashtag = req.body.hashtag;
     const postid = req.params.id;
+    console.log('postid: ' + postid);
     persistHashtag(postid, hashtag).then(()=>res.redirect('/feed'));
 }
 );
