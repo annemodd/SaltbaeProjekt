@@ -18,10 +18,19 @@
                 <% if (post.textentry) { %>
                     <p><%= post.textentry.text %></p>
                 <% } else if (post.photo) { %>
-                    <img class="img-rounded img-responsive" style="padding:0;margin:2% 0" src="uploads/<%= post.photo.filename %>">
+                     <img src="uploads/<%= post.photo.filename %>"/>
+                    
                 <% } else {
                     // console.log("Undefinded post");
-                }%>                    
+                }%>
+                <form action="/feed"
+                    method="POST"
+                    enctype="multipart/form-data">
+                <label for="hashtag">#
+                    <input id="hashtag" type="text" name="hashtag"/>
+                    <input id="postid" type="hidden" name="postid" value="<%= post._id %>" />
+                </label>
+                </form>                   
             <% }) %> 
         </div>  
     </main>
