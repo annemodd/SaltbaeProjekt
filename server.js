@@ -51,12 +51,6 @@ app.get('/feed', restricted(), (req, res)=>{
         res.render('pages/feed',{
             posts
         }));
-      /* findAllHashtags()
-    .then((hashtags)=>
-        res.render('pages/feed',{
-            hashtags
-        }));*/
-
 });
 
 //Link to profile page only for logged in users
@@ -67,7 +61,6 @@ app.get('/profile', restricted(), function(req, res) {
     .then((posts) =>
         res.render('pages/profile',{
             username: `"${displayname}"`,
-            suggestions: "#bla,#bla2,#bla3",
             posts,
         })
     );
