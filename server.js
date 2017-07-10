@@ -88,8 +88,8 @@ app.get('/logout', function(req, res){
 
 app.post('/uploadFile', upload.single('photo'), (req, res) => {
     const {filename, mimetype, size} = req.file;
-    
-    persistPhoto(filename, mimetype, size, req.user.id).
+    const category = req.body.categories;
+    persistPhoto(filename, mimetype, size, req.user.id, category).
         then(() =>
             res.redirect('/feed')
         );
@@ -97,8 +97,8 @@ app.post('/uploadFile', upload.single('photo'), (req, res) => {
 
 app.post('/uploadText',upload.single('text'), (req, res) => {
      const inputText = req.body.inputText;
-
-    persistText(inputText,req.user.id).
+     const category = req.body.categories;
+    persistText(inputText,req.user.id, category).
         then(() => {
             res.redirect('/feed')
         });
