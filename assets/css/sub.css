@@ -4,6 +4,11 @@
         url("fonts/Milkshake/Milkshake.otf") format("opentype");
 }
 
+@font-face{
+    font-family: "alex";
+    src: url("fonts/AlexBrush/AlexBrush-Regular.ttf") format("truetype");
+}
+
 body {
     background-image: url("../img/background.jpg");
     font-family: verdana,monospace;
@@ -74,6 +79,50 @@ img{
     margin-top:10px;
 }
 
+input{
+    margin-left: auto;
+    margin-right:auto;
+}
+
+input.upload{
+    padding:20px;
+}
+
 div.feed{
     background-color:lightgrey;
+}
+
+h1{
+    font-family:alex;
+    text-align: center;
+    font-size: 36px;
+    padding: 20px;    
+}
+
+select{
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+
+div.categories{
+    display:none;
+    position:absolute;
+    background-color: black;
+    color:lightgrey;
+}
+
+span.dropdown{
+    display:inline-block;
+    padding-top:15px;    
+}
+
+span.dropdown:hover div.categories{
+    width: 160px;
+    display: block;
+    position:absolute;
+}
+
+ul.dropdown{
+ text-align: left;
 }

@@ -8,25 +8,41 @@
 </head>
 
 <body class="container">
-
+    <div class=feed>
     <header>
         <% include ../partials/header %>
     </header>  
 
+    <h1> Choose a category </h1>
+
+    <select id="categories" name="categories">
+            <option value="funny">Funny</option>
+            <option value="selfie">Selfie</option>
+            <option value="nature">Nature</option>
+            <option value="animals">Animals</option>
+            <option value="travel">Travel</option>
+            <option value="food">Food</option>
+            <option value="technology">Technology</option>
+            <option value="politics">Politics</option>
+            <option value="news">News</option>
+        </select>
     
+<h1> Upload a picture </h1>
+
     <form action="/uploadFile"
         method="POST"
         enctype="multipart/form-data">
-        <input name="photo" type="file">
-        <button type="submit">Upload</button>
+        <input class="upload" name="photo" type="file">
+        
+        <button type="submit">Submit</button>
     </form>
 
-    <div>
+<h1> Or a text </h1>
     <form action="/uploadText" 
         method="POST">
         <label for="inputText">
-        <div class="col-xs-10">
-                    <textarea input id="inputText" type="text" name="inputText" placeholder="Enter entry text"></textarea>
+                    <textarea input id="inputText" type="text" name="inputText" rows="10" cols="50" placeholder="Enter entry text"></textarea>
+                    <br>
                     <button type="submit">Submit</button>
                     </div>
                 </label>
