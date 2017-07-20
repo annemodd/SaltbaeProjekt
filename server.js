@@ -23,6 +23,8 @@ const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
 const { findUserPosts, findAllPosts , findAllHashtags } = require('./lib/services/reader');
 
+const FB = require('fb');
+
 
 const upload = multer({ dest: `./uploads`});
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -110,6 +112,28 @@ app.post('/feed', upload.single('hashtag'), (req, res) => {
     persistHashtag(postid, hashtag).then(()=>res.redirect('/feed'));
 }
 );
+
+
+app.post('/share', function(req,res) {
+ const url = 'https://graph.facebook.com/me/feed';
+ const params = {
+  access_token: req.session.access_token,
+  message: req.body.text,
+   link: req.body.url
+  
+ };
+ request.post({url: url, qs: params}, function(err, resp, body) {
+  if (err) {
+   console.error(err)
+    return;
+  }
+  const user_id = req.user.id;
+  const post_id = req.post_id;
+  const post_url = "https://www.facebook.com/"+user_id+"/posts/"+post_id;
+  res.send(post_url);
+ });
+});
+
 
 app.listen(8080, (err) => {
     if (err) {

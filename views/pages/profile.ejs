@@ -29,14 +29,17 @@
                         <% } else {
                             console.log("Undefinded post");
                         }%>
-
                         <p><%= post.hashtagList%></p>
+                        <a href="/share">
+                            <input type="button" class="btn btn-primary" value="f Share on Facebok">
+                        </a>
                          <!-- Delete entry -->
                          <a href="/delete/<%= post._id %>">
                             <p><span class="btn glyphicon glyphicon-trash" aria-hidden="true" ></span></p>
                         </a>
             <% }) %> 
         </div>
+
     
 </body>
 </html>
