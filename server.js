@@ -21,7 +21,7 @@ const restricted = sso(app, {
 
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
-const { findUserPosts, findAllPosts , findAllHashtags } = require('./lib/services/reader');
+const { findUserPosts, findAllPosts } = require('./lib/services/reader');
 
 
 const upload = multer({ dest: `./uploads`});
