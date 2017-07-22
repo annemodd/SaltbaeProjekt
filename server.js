@@ -115,6 +115,5 @@ app.listen(8080, (err) => {
     if (err) {
         return console.error(err);
     }
-
     console.log(`Saltbae is running ...`);
 });
