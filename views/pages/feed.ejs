@@ -28,7 +28,7 @@
                     method="POST"
                     enctype="multipart/form-data">
                 <label for="hashtag">#
-                    <input id="hashtag" type="text" name="hashtag"/>
+                    <input id="hashtag" type="text" name="hashtag" minlength="2" maxlength="50"/>
                     <input id="postid" type="hidden" name="postid" value="<%= post._id %>" />
                 </label>
                 </form>                   

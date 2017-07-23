@@ -32,7 +32,7 @@
     <form action="/uploadFile"
         method="POST"
         enctype="multipart/form-data">
-        <input class="upload" name="photo" type="file">
+        <input class="upload" name="photo" type="file" required>
         
         <button type="submit">Submit</button>
     </form>
@@ -41,7 +41,7 @@
     <form action="/uploadText" 
         method="POST">
         <label for="inputText">
-                    <textarea input id="inputText" type="text" name="inputText" rows="10" cols="50" placeholder="Enter entry text"></textarea>
+                    <textarea input id="inputText" type="text" name="inputText" rows="10" cols="50" minlength="3" maxlength="5000" placeholder="Enter entry text"></textarea>
                     <br>
                     <button type="submit">Submit</button>
                     </div>
