@@ -22,6 +22,7 @@ const restricted = sso(app, {
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
 const { findUserPosts, findAllPosts } = require('./lib/services/reader');
+const { isImagetype} = require('./lib/services/validator');
 
 
 const upload = multer({ dest: `./uploads`});
@@ -39,7 +40,7 @@ app.get('/', function(req, res) {
 });
 
 // Verlinkung about page
-app.get('/about',restricted(), function(req, res) {
+app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
@@ -86,28 +87,32 @@ app.get('/logout', function(req, res){
     res.render('pages/index');
 });
 
-app.post('/uploadFile', upload.single('photo'), (req, res) => {
+app.post('/uploadFile', upload.single('photo'), async(req, res) => {
     const {filename, mimetype, size} = req.file;
     const category = req.body.categories;
-    persistPhoto(filename, mimetype, size, req.user.id, category).
-        then(() =>
-            res.redirect('/feed')
-        );
+    console.log("mimetype: " + isImagetype(mimetype));
+    if(isImagetype(mimetype)){
+        await persistPhoto(filename, mimetype, size, req.user.id, category);
+        res.redirect('/feed');
+    }else{
+        res.redirect('/upload');
+        //Fehlermeldung an User
+    }
 });
 
-app.post('/uploadText',upload.single('text'), (req, res) => {
+
+app.post('/uploadText',upload.single('text'), async(req, res) => {
      const inputText = req.body.inputText;
      const category = req.body.categories;
-    persistText(inputText,req.user.id, category).
-        then(() => {
-            res.redirect('/feed')
-        });
+    await persistText(inputText,req.user.id, category);
+    res.redirect('/feed')
 });
 
-app.post('/feed', upload.single('hashtag'), (req, res) => {
+app.post('/feed', upload.single('hashtag'), async(req, res) => {
     const hashtag = req.body.hashtag;
     const postid = req.body.postid;
-    persistHashtag(postid, hashtag).then(()=>res.redirect('/feed'));
+    await persistHashtag(postid, hashtag);
+    res.redirect('/feed');
 }
 );
 
