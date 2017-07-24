@@ -30,7 +30,7 @@
                 <option value="politics">Politics</option>
                 <option value="news">News</option>
             </select>
-            <input class="upload" name="photo" type="file">
+            <input class="upload" name="photo" type="file" accept="image/*" required>
             <button type="submit">Submit</button>
         </form>
 
@@ -49,7 +49,7 @@
                     <option value="politics">Politics</option>
                     <option value="news">News</option>
                 </select>
-            <textarea input id="inputText" type="text" name="inputText" rows="10" cols="50" placeholder="Enter entry text"></textarea>
+            <textarea input id="inputText" type="text" name="inputText" rows="10" cols="50" minlength="3" maxlength="5000" placeholder="Enter entry text" title="Your text can contain 3 to 5000 characters."></textarea>
             <br>
             <button type="submit">Submit</button>
         </form>
