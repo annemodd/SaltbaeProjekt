@@ -28,7 +28,7 @@
                     method="POST"
                     enctype="multipart/form-data">
                 <label for="hashtag">#
-                    <input id="hashtag" type="text" name="hashtag"/>
+                    <input id="hashtag" type="text" name="hashtag" pattern="[A-Za-z]{2,50}" title="Hashtags contain only letters. Please enter 2-50 letters!"/>
                     <input id="postid" type="hidden" name="postid" value="<%= post._id %>" />
                 </label>
                 </form>                   
