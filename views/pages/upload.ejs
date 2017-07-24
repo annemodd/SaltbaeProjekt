@@ -9,44 +9,51 @@
 
 <body class="container">
     <div class=feed>
-    <header>
-        <% include ../partials/header %>
-    </header>  
+        <header>
+            <% include ../partials/header %>
+        </header>  
 
-    <h1> Choose a category </h1>
-
-    <select id="categories" name="categories">
-            <option value="funny">Funny</option>
-            <option value="selfie">Selfie</option>
-            <option value="nature">Nature</option>
-            <option value="animals">Animals</option>
-            <option value="travel">Travel</option>
-            <option value="food">Food</option>
-            <option value="technology">Technology</option>
-            <option value="politics">Politics</option>
-            <option value="news">News</option>
-        </select>
-    
-<h1> Upload a picture </h1>
-
-    <form action="/uploadFile"
-        method="POST"
-        enctype="multipart/form-data">
-        <input class="upload" name="photo" type="file">
         
-        <button type="submit">Submit</button>
-    </form>
+        <h1> Upload a picture </h1>
 
-<h1> Or a text </h1>
-    <form action="/uploadText" 
-        method="POST">
-        <label for="inputText">
-                    <textarea input id="inputText" type="text" name="inputText" rows="10" cols="50" placeholder="Enter entry text"></textarea>
-                    <br>
-                    <button type="submit">Submit</button>
-                    </div>
-                </label>
-    </form>
+        <form action="/uploadFile"
+            method="POST"
+            enctype="multipart/form-data">
+            <h1> Choose a category </h1>
+            <select class="categories" name="categories">
+                <option value="funny">Funny</option>
+                <option value="selfie">Selfie</option>
+                <option value="nature">Nature</option>
+                <option value="animals">Animals</option>
+                <option value="travel">Travel</option>
+                <option value="food">Food</option>
+                <option value="technology">Technology</option>
+                <option value="politics">Politics</option>
+                <option value="news">News</option>
+            </select>
+            <input class="upload" name="photo" type="file">
+            <button type="submit">Submit</button>
+        </form>
+
+        <h1> Or a text </h1>
+        <form action="/uploadText" 
+            method="POST">
+            <h1> Choose a category </h1>
+                <select class="categories" name="categories">
+                    <option value="funny">Funny</option>
+                    <option value="selfie">Selfie</option>
+                    <option value="nature">Nature</option>
+                    <option value="animals">Animals</option>
+                    <option value="travel">Travel</option>
+                    <option value="food">Food</option>
+                    <option value="technology">Technology</option>
+                    <option value="politics">Politics</option>
+                    <option value="news">News</option>
+                </select>
+            <textarea input id="inputText" type="text" name="inputText" rows="10" cols="50" placeholder="Enter entry text"></textarea>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 
 </body>
