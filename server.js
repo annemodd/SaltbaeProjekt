@@ -114,7 +114,10 @@ app.post('/uploadText',upload.single('text'), async(req, res) => {
 app.post('/feed', upload.single('hashtag'), async(req, res) => {
     const hashtag = req.body.hashtag;
     const postid = req.body.postid;
-    if(hashtag.match(/[A-Z]{2,50}/i)){
+    console.log('Matches:'+ hashtag.match(/[^A-Za-z]/));
+    if(hashtag.match(/[^A-Za-z]/) === null 
+        && hashtag.length >= 2
+        && hashtag.length <= 50){
         await persistHashtag(postid, hashtag);
     }
     res.redirect('/feed');
