@@ -14,7 +14,7 @@ const restricted = sso(app, {
         clientID        : '1162182387237775',
         clientSecret    : '0417ba8a1f0392dc48c5aba3eaa41dea',
         callbackURL     : 'http://localhost:8080/auth/facebook/callback',
-        successRedirect: "/feed",
+        successRedirect: "/auth/callback",
         failureRedirect: "/",
     },
 });
@@ -22,6 +22,7 @@ const restricted = sso(app, {
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
 const { findUserPosts, findAllPosts } = require('./lib/services/reader');
+const { isImagetype} = require('./lib/services/validator');
 
 
 const upload = multer({ dest: `./uploads`});
@@ -39,31 +40,33 @@ app.get('/', function(req, res) {
 });
 
 // Verlinkung about page
-app.get('/about',restricted(), function(req, res) {
+app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
-// Verlinkung feed page
 
-app.get('/feed', restricted(), (req, res)=>{
-    findAllPosts()
-        .then((posts) => 
-        res.render('pages/feed',{
+//Link to check user
+app.get('/auth/callback',restricted(), async(req,res)=>{
+    await persistUser(req.user.displayName, req.user.id);
+    res.redirect('/feed');
+});
+
+// Verlinkung feed page
+app.get('/feed', restricted(), async(req, res)=>{
+    const posts = await findAllPosts();
+    res.render('pages/feed',{
             posts
-        }));
+    });
 });
 
 //Link to profile page only for logged in users
-app.get('/profile', restricted(), function(req, res) {
+app.get('/profile', restricted(), async(req, res) => {
     const displayname = req.user.displayName;
-     persistUser(req.user.displayName, req.user.id);
-    findUserPosts(req.user.id)
-    .then((posts) =>
-        res.render('pages/profile',{
-            username: `"${displayname}"`,
-            posts,
-        })
-    );
+    const posts = await findUserPosts(req.user.id);
+    res.render('pages/profile',{
+        username: `"${displayname}"`,
+        posts,
+    })
 });
 
 app.get('/delete/:id', async function(req,res){
@@ -86,28 +89,38 @@ app.get('/logout', function(req, res){
     res.render('pages/index');
 });
 
-app.post('/uploadFile', upload.single('photo'), (req, res) => {
+app.post('/uploadFile', upload.single('photo'), async(req, res) => {
     const {filename, mimetype, size} = req.file;
     const category = req.body.categories;
-    persistPhoto(filename, mimetype, size, req.user.id, category).
-        then(() =>
-            res.redirect('/feed')
-        );
+    //if mimetype not undefined
+    if(isImagetype(mimetype)){
+        await persistPhoto(filename, mimetype, size, req.user.id, category);
+        res.redirect('/feed');
+    }else{
+        res.redirect('/upload');
+        //Error message to user
+    }
 });
 
-app.post('/uploadText',upload.single('text'), (req, res) => {
-     const inputText = req.body.inputText;
-     const category = req.body.categories;
-    persistText(inputText,req.user.id, category).
-        then(() => {
-            res.redirect('/feed')
-        });
+
+app.post('/uploadText',upload.single('text'), async(req, res) => {
+    const inputText = req.body.inputText;
+    const category = req.body.categories;
+    if(inputText.length >= 5 && inputText.length <= 5000)
+        await persistText(inputText,req.user.id, category);
+    res.redirect('/feed')
 });
 
-app.post('/feed', upload.single('hashtag'), (req, res) => {
+app.post('/feed', upload.single('hashtag'), async(req, res) => {
     const hashtag = req.body.hashtag;
     const postid = req.body.postid;
-    persistHashtag(postid, hashtag).then(()=>res.redirect('/feed'));
+    console.log('Matches:'+ hashtag.match(/[^A-Za-z]/));
+    if(hashtag.match(/[^A-Za-z]/) === null 
+        && hashtag.length >= 2
+        && hashtag.length <= 50){
+        await persistHashtag(postid, hashtag);
+    }
+    res.redirect('/feed');
 }
 );
 
