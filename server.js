@@ -21,7 +21,7 @@ const restricted = sso(app, {
 
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
-const { findUserPosts, findAllPosts } = require('./lib/services/reader');
+const { findUserPosts, findAllPosts, findCategory } = require('./lib/services/reader');
 const { isImagetype} = require('./lib/services/validator');
 
 
@@ -53,7 +53,8 @@ app.get('/auth/callback',restricted(), async(req,res)=>{
 
 // Verlinkung feed page
 app.get('/feed', restricted(), async(req, res)=>{
-    const posts = await findAllPosts();
+    //const posts = await findAllPosts();
+    const posts = await findCategory(req.body.option);
     res.render('pages/feed',{
             posts
     });
