@@ -166,7 +166,6 @@ app.post('/uploadFile', upload.single('photo'), async(req, res) => {
     }
 });
 
-
 app.post('/uploadText',upload.single('text'), async(req, res) => {
     const inputText = req.body.inputText;
     const category = req.body.categories;
