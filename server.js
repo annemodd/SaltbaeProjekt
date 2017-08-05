@@ -61,7 +61,6 @@ app.get('/feed', restricted(), async(req, res)=>{
 });
 
 app.get('/funny', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('funny');
     res.render('pages/feed',{
             posts
@@ -69,7 +68,6 @@ app.get('/funny', restricted(), async(req, res)=>{
 });
 
 app.get('/selfie', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('selfie');
     res.render('pages/feed',{
             posts
@@ -77,7 +75,6 @@ app.get('/selfie', restricted(), async(req, res)=>{
 });
 
 app.get('/nature', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('nature');
     res.render('pages/feed',{
             posts
@@ -85,7 +82,6 @@ app.get('/nature', restricted(), async(req, res)=>{
 });
 
 app.get('/animals', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('animals');
     res.render('pages/feed',{
             posts
@@ -93,7 +89,6 @@ app.get('/animals', restricted(), async(req, res)=>{
 });
 
 app.get('/travel', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('travel');
     res.render('pages/feed',{
             posts
@@ -101,7 +96,6 @@ app.get('/travel', restricted(), async(req, res)=>{
 });
 
 app.get('/food', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('food');
     res.render('pages/feed',{
             posts
@@ -109,7 +103,6 @@ app.get('/food', restricted(), async(req, res)=>{
 });
 
 app.get('/technology', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('technology');
     res.render('pages/feed',{
             posts
@@ -117,7 +110,6 @@ app.get('/technology', restricted(), async(req, res)=>{
 });
 
 app.get('/politics', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('politics');
     res.render('pages/feed',{
             posts
@@ -125,7 +117,6 @@ app.get('/politics', restricted(), async(req, res)=>{
 });
 
 app.get('/news', restricted(), async(req, res)=>{
-    //const posts = await findAllPosts();
     const posts = await findCategory('news');
     res.render('pages/feed',{
             posts
