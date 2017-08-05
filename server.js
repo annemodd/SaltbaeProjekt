@@ -21,7 +21,7 @@ const restricted = sso(app, {
 
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
-const { findUserPosts, findAllPosts } = require('./lib/services/reader');
+const { findUserPosts, findAllPosts, findCategory } = require('./lib/services/reader');
 const { isImagetype} = require('./lib/services/validator');
 
 
@@ -54,6 +54,70 @@ app.get('/auth/callback',restricted(), async(req,res)=>{
 // Verlinkung feed page
 app.get('/feed', restricted(), async(req, res)=>{
     const posts = await findAllPosts();
+    //const posts = await findCategory(req.body.option);
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/funny', restricted(), async(req, res)=>{
+    const posts = await findCategory('funny');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/selfie', restricted(), async(req, res)=>{
+    const posts = await findCategory('selfie');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/nature', restricted(), async(req, res)=>{
+    const posts = await findCategory('nature');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/animals', restricted(), async(req, res)=>{
+    const posts = await findCategory('animals');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/travel', restricted(), async(req, res)=>{
+    const posts = await findCategory('travel');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/food', restricted(), async(req, res)=>{
+    const posts = await findCategory('food');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/technology', restricted(), async(req, res)=>{
+    const posts = await findCategory('technology');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/politics', restricted(), async(req, res)=>{
+    const posts = await findCategory('politics');
+    res.render('pages/feed',{
+            posts
+    });
+});
+
+app.get('/news', restricted(), async(req, res)=>{
+    const posts = await findCategory('news');
     res.render('pages/feed',{
             posts
     });
@@ -101,7 +165,6 @@ app.post('/uploadFile', upload.single('photo'), async(req, res) => {
         //Error message to user
     }
 });
-
 
 app.post('/uploadText',upload.single('text'), async(req, res) => {
     const inputText = req.body.inputText;
