@@ -114,7 +114,7 @@ app.post('/feed', upload.single('hashtag'), (req, res) => {
 );
 
 
-app.post('/share', function(req,res) {
+app.post('/share/:id?', function(req,res) {
  const url = 'https://graph.facebook.com/me/feed';
  const params = {
   access_token: req.session.access_token,
@@ -131,6 +131,7 @@ app.post('/share', function(req,res) {
   const post_id = req.post_id;
   const post_url = "https://www.facebook.com/"+user_id+"/posts/"+post_id;
   res.send(post_url);
+  res.redirect('/profile');
  });
 });
 
