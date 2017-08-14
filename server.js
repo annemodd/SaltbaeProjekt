@@ -22,7 +22,7 @@ const restricted = sso(app, {
 const logout = require('express-passport-logout');
 const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = require('./lib/services/persister');
 const { findUserPosts, findAllPosts, findCategory } = require('./lib/services/reader');
-const { isImagetype} = require('./lib/services/validator');
+const { isImagetype, isValidHashtag, isValidPostText} = require('./lib/services/validator');
 
 
 const upload = multer({ dest: `./uploads`});
@@ -44,34 +44,59 @@ app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
+//Link to error page
+app.get('/error', function(req,res) {
+    res.render('pages/error');
+});
+
 
 //Link to check user
 app.get('/auth/callback',restricted(), async(req,res)=>{
-    await persistUser(req.user.displayName, req.user.id);
-    res.redirect('/feed');
+    try{
+        await persistUser(req.user.displayName, req.user.id);
+        res.redirect('/feed');
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 // Verlinkung feed page
 app.get('/feed', restricted(), async(req, res)=>{
-    const posts = await findAllPosts();
-    //const posts = await findCategory(req.body.option);
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findAllPosts();
+        //const posts = await findCategory(req.body.option);
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
+    }
 });
 
 app.get('/funny', restricted(), async(req, res)=>{
-    const posts = await findCategory('funny');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('funny');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
+    }
 });
 
 app.get('/selfie', restricted(), async(req, res)=>{
-    const posts = await findCategory('selfie');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('selfie');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
+    }
 });
 
 app.get('/nature', restricted(), async(req, res)=>{
@@ -125,18 +150,28 @@ app.get('/news', restricted(), async(req, res)=>{
 
 //Link to profile page only for logged in users
 app.get('/profile', restricted(), async(req, res) => {
-    const displayname = req.user.displayName;
-    const posts = await findUserPosts(req.user.id);
-    res.render('pages/profile',{
-        username: `"${displayname}"`,
-        posts,
-    })
+    try{
+        const displayname = req.user.displayName;
+        const posts = await findUserPosts(req.user.id);
+        res.render('pages/profile',{
+            username: `"${displayname}"`,
+            posts,
+        })
+    }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
+    }
 });
 
 app.get('/delete/:id', async function(req,res){
-    const id = req.params.id;
-    await deleteEntry(id);
-    res.redirect('/profile');
+    try{
+        const id = req.params.id;
+        await deleteEntry(id);
+        res.redirect('/profile');
+     }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
+    }
 });
 
 
@@ -154,36 +189,47 @@ app.get('/logout', function(req, res){
 });
 
 app.post('/uploadFile', upload.single('photo'), async(req, res) => {
-    const {filename, mimetype, size} = req.file;
-    const category = req.body.categories;
-    //if mimetype not undefined
-    if(isImagetype(mimetype)){
-        await persistPhoto(filename, mimetype, size, req.user.id, category);
-        res.redirect('/feed');
-    }else{
-        res.redirect('/upload');
-        //Error message to user
+    try{
+        const {filename, mimetype, size} = req.file;
+        const category = req.body.categories;
+        if(isImagetype(mimetype)){
+            await persistPhoto(filename, mimetype, size, req.user.id, category);
+            res.redirect('/feed');
+        }else{
+            res.redirect('/upload');
+            //Error message to user
+        } 
+    }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
     }
 });
 
 app.post('/uploadText',upload.single('text'), async(req, res) => {
     const inputText = req.body.inputText;
     const category = req.body.categories;
-    if(inputText.length >= 5 && inputText.length <= 5000)
-        await persistText(inputText,req.user.id, category);
-    res.redirect('/feed')
+    try{
+        if(isValidPostText(inputText));
+            await persistText(inputText,req.user.id, category);
+        res.redirect('/feed')
+    }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
+    }
 });
 
 app.post('/feed', upload.single('hashtag'), async(req, res) => {
     const hashtag = req.body.hashtag;
     const postid = req.body.postid;
-    console.log('Matches:'+ hashtag.match(/[^A-Za-z]/));
-    if(hashtag.match(/[^A-Za-z]/) === null 
-        && hashtag.length >= 2
-        && hashtag.length <= 50){
-        await persistHashtag(postid, hashtag);
+    try{
+        if(hashtag.match(isValidHashtag(hashtag))){
+            await persistHashtag(postid, hashtag);
+        }
+        res.redirect('/feed');
+    }catch(err){
+        console.error(err);
+        res.send("Ooops something went wrong...");
     }
-    res.redirect('/feed');
 }
 );
 
