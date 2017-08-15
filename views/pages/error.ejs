@@ -2,16 +2,23 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <% include ../partials/head %>
-        <link rel="stylesheet" href="../css/main.css"/>
-    </head>
-    <body class="container">
-        <% if (login) { %>
-            <% include ../partials/header %>
-        <% } else { %>
-            <% include ../partials/header_public %>
-        <% } %>
-        <p class="kursiv">Ooops something went wrong...</p>
-    </body>
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="css/sub.css"/>
+</head>
+<body class="container">
+    <main>  
+    <div class="feed">
+    <header>
+    <% if (login) { %>
+        <% include ../partials/header %>
+    <% } else { %>
+        <% include ../partials/header_public %>
+    <% } %>
+    </header>
+    <p class="kursiv">Ooops something went wrong...</p>
+    </div>
+    
+    </main>
+</body>
 </html>
