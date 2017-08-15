@@ -181,7 +181,7 @@ app.get('css', function(req, res){
     res.render('pages/css/main.css');
 });
 
-app.get('/upload', function(req, res){
+app.get('/upload', restricted(), function(req, res){
     res.render('pages/upload');
 });
 
@@ -207,7 +207,7 @@ app.post('/uploadFile', upload.single('photo'), async(req, res) => {
     }
 });
 
-app.post('/uploadText',upload.single('text'), async(req, res) => {
+app.post('/uploadText', upload.single('text'), async(req, res) => {
     const inputText = req.body.inputText;
     const category = req.body.categories;
     try{
