@@ -236,7 +236,7 @@ app.post('/feed', upload.single('hashtag'), async(req, res) => {
 );
 
 
-app.post('/share/:id?', function(req,res) {
+/*app.post('/share/:id?', function(req,res) {
  const url = 'https://graph.facebook.com/me/feed';
  const params = {
   access_token: req.session.access_token,
@@ -255,7 +255,7 @@ app.post('/share/:id?', function(req,res) {
   res.send(post_url);
   res.redirect('/profile');
  });
-});
+});*/
 
 
 app.listen(8080, (err) => {
