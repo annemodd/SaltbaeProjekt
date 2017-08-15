@@ -24,6 +24,8 @@ const { persistPhoto, persistUser, persistText, deleteEntry, persistHashtag } = 
 const { findUserPosts, findAllPosts, findCategory } = require('./lib/services/reader');
 const { isImagetype, isValidHashtag, isValidPostText} = require('./lib/services/validator');
 
+const FB = require('fb');
+
 
 const upload = multer({ dest: `./uploads`});
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -179,7 +181,7 @@ app.get('css', function(req, res){
     res.render('pages/css/main.css');
 });
 
-app.get('/upload', function(req, res){
+app.get('/upload', restricted(), function(req, res){
     res.render('pages/upload');
 });
 
@@ -205,7 +207,7 @@ app.post('/uploadFile', upload.single('photo'), async(req, res) => {
     }
 });
 
-app.post('/uploadText',upload.single('text'), async(req, res) => {
+app.post('/uploadText', upload.single('text'), async(req, res) => {
     const inputText = req.body.inputText;
     const category = req.body.categories;
     try{
@@ -232,6 +234,29 @@ app.post('/feed', upload.single('hashtag'), async(req, res) => {
     }
 }
 );
+
+
+/*app.post('/share/:id?', function(req,res) {
+ const url = 'https://graph.facebook.com/me/feed';
+ const params = {
+  access_token: req.session.access_token,
+  message: req.body.text,
+   link: req.body.url
+  
+ };
+ request.post({url: url, qs: params}, function(err, resp, body) {
+  if (err) {
+   console.error(err)
+    return;
+  }
+  const user_id = req.user.id;
+  const post_id = req.post_id;
+  const post_url = "https://www.facebook.com/"+user_id+"/posts/"+post_id;
+  res.send(post_url);
+  res.redirect('/profile');
+ });
+});*/
+
 
 app.listen(8080, (err) => {
     if (err) {

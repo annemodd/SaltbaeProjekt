@@ -21,7 +21,9 @@
                         <p>No entries. Let's get started!</p>
             <% } %>
             <!-- Entry row -->
+            <div class="posts">
             <% posts.forEach(function (post) { %>
+
                         <% if (post.textentry) { %>
                             <p><%= post.textentry.text %></p>
                         <% } else if (post.photo) { %>
@@ -29,14 +31,19 @@
                         <% } else {
                             console.log("Undefinded post");
                         }%>
-
                         <p><%= post.hashtagList%></p>
+                        <a>
+                            <p><input type="button" class="btn btn-primary" value="f Share on Facebok"></p>
+                        </a>
                          <!-- Delete entry -->
                          <a href="/delete/<%= post._id %>">
                             <p><span class="btn glyphicon glyphicon-trash" aria-hidden="true" ></span></p>
                         </a>
+                    <hr/>
             <% }) %> 
+            </div>
         </div>
+
     
 </body>
 </html>
