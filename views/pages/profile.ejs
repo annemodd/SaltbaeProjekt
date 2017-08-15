@@ -23,7 +23,7 @@
             <!-- Entry row -->
             <div class="posts">
             <% posts.forEach(function (post) { %>
-
+                    <div class="entry"> 
                         <% if (post.textentry) { %>
                             <p><%= post.textentry.text %></p>
                         <% } else if (post.photo) { %>
@@ -39,7 +39,7 @@
                          <a href="/delete/<%= post._id %>">
                             <p><span class="btn glyphicon glyphicon-trash" aria-hidden="true" ></span></p>
                         </a>
-                    <hr/>
+                    </div>
             <% }) %> 
             </div>
         </div>

@@ -15,7 +15,8 @@
     <main>  
         <div class=feed>
         <div class="posts">
-            <% posts.forEach(function (post) { %>            
+            <% posts.forEach(function (post) { %> 
+            <div class="entry">         
                 <% if (post.textentry) { %>
                     <p><%= post.textentry.text %></p>
                 <% } else if (post.photo) { %>
@@ -34,7 +35,7 @@
                     <input id="postid" type="hidden" name="postid" value="<%= post._id %>" />
                 </label>
                 </form>
-                <hr/>        
+                </div>
             <% }) %> 
             </div> 
         </div>  

@@ -19,18 +19,26 @@ nav {
     width: 100%;
     margin:0;
     padding:0;
+}
+
+ul.navleft{
+    text-align:left;
+    list-style-type: none;
+}
+
+.navleft li{
+    display: inline-block;
     
 }
 
-ul{
-    list-style-type:none;
-    text-align: right;
-    color: lightgrey;
+.navleft a{
+    padding-left:10px;
 }
 
+
 a{
-   color:lightgrey;
-    margin-left: 20px; 
+    color:lightgray;
+    display:block;
 }
 
 a:hover{
