@@ -21,18 +21,22 @@ nav {
     padding:0;
 }
 
-ul{
-    list-style-type:none;
-    text-align: right;
-    color: lightgrey;
+ul.navleft{
+    text-align:left;
 }
 
-span.leftnav{
-    margin-left: 20px; 
+.navleft li{
+    display: inline-block;
 }
+
+.navleft a{
+    padding-left:10px;
+}
+
 
 a{
     color:lightgray;
+    display:block;
 }
 
 a:hover{
@@ -132,3 +136,10 @@ div.posts{
     word-wrap: break-word;
 }
 
+div.entry{
+    border-bottom: 1px white solid;
+}
+
+div.entry:last-child {
+    border-bottom:none;
+}
