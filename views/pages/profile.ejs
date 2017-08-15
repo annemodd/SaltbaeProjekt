@@ -1,0 +1,49 @@
+<!-- views/pages/profile.ejs -->
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="css/sub.css"/>
+</head>
+<body class="container">
+
+  
+            <div class="feed">
+
+              <header>
+        <% include ../partials/header %>
+    </header>
+                    <h1>Hello <%= username %></h1>
+
+            <!-- Empty entry where user is logged in user!!!-->
+            <% if (!posts.length) { %>
+                        <p>No entries. Let's get started!</p>
+            <% } %>
+            <!-- Entry row -->
+            <div class="posts">
+            <% posts.forEach(function (post) { %>
+                    <div class="entry"> 
+                        <% if (post.textentry) { %>
+                            <p><%= post.textentry.text %></p>
+                        <% } else if (post.photo) { %>
+                            <img src="uploads/<%= post.photo.filename %>">
+                        <% } else {
+                            console.log("Undefinded post");
+                        }%>
+                        <p><%= post.hashtagList%></p>
+                        <a>
+                            <p><input type="button" class="btn btn-primary" value="f Share on Facebok"></p>
+                        </a>
+                         <!-- Delete entry -->
+                         <a href="/delete/<%= post._id %>">
+                            <p><span class="btn glyphicon glyphicon-trash" aria-hidden="true" ></span></p>
+                        </a>
+                    </div>
+            <% }) %> 
+            </div>
+        </div>
+
+    
+</body>
+</html>

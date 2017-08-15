@@ -1,0 +1,145 @@
+@font-face{
+    font-family: "milkshake";
+    src: url("fonts/Milkshake/Milkshake.ttf") format("truetype"),
+        url("fonts/Milkshake/Milkshake.otf") format("opentype");
+}
+
+@font-face{
+    font-family: "alex";
+    src: url("fonts/AlexBrush/AlexBrush-Regular.ttf") format("truetype");
+}
+
+body {
+    background-image: url("../img/background.jpg");
+    font-family: verdana,monospace;
+}
+
+nav {
+    background-color: black;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+
+ul.navleft{
+    text-align:left;
+}
+
+.navleft li{
+    display: inline-block;
+}
+
+.navleft a{
+    padding-left:10px;
+}
+
+
+a{
+    color:lightgray;
+    display:block;
+}
+
+a:hover{
+    background-color:black;
+    color:lightgrey;
+}
+
+li.title{
+    color: lightgrey;
+    font-family: "milkshake";
+    font-size: 32px;
+    text-align: left;
+    margin-left:20px;
+}
+
+p{
+    font-size: 15px;
+    text-align: center;
+    color:black;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 20px;    
+}
+
+form{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+}
+
+img{
+    width:500px;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+    padding: 20px;
+}
+
+.btn-m{
+    background-color: black;
+    border-color:black;
+    color:lightgrey;
+    margin-top:10px;
+}
+
+input{
+    margin-left: auto;
+    margin-right:auto;
+}
+
+input.upload{
+    padding:20px;
+}
+
+div.feed{
+    background-color:lightgrey;
+}
+
+h1{
+    font-family:alex;
+    text-align: center;
+    font-size: 36px;
+    padding: 20px;    
+}
+
+select{
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+
+div.categories{
+    display:none;
+    position:absolute;
+    background-color: black;
+    color:lightgrey;
+}
+
+span.dropdown{
+    display:inline-block;
+    padding-top:15px;    
+}
+
+span.dropdown:hover div.categories{
+    width: 160px;
+    display: block;
+    position:absolute;
+}
+
+ul.dropdown{
+ text-align: left;
+}
+
+div.posts{
+    padding: 20px;
+    word-wrap: break-word;
+}
+
+div.entry{
+    border-bottom: 1px white solid;
+}
+
+div.entry:last-child {
+    border-bottom:none;
+}

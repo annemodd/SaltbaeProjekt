@@ -1,0 +1,44 @@
+<!-- views/pages/feed.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="css/sub.css"/>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>  
+        <div class=feed>
+        <div class="posts">
+            <% posts.forEach(function (post) { %> 
+            <div class="entry">         
+                <% if (post.textentry) { %>
+                    <p><%= post.textentry.text %></p>
+                <% } else if (post.photo) { %>
+                     <img src="uploads/<%= post.photo.filename %>"/>
+                    
+                <% } else {
+                    // console.log("Undefinded post");
+                }%>
+                
+                <p><%= post.hashtagList %></p>
+                <form action="/feed"
+                    method="POST"
+                    enctype="multipart/form-data">
+                <label for="hashtag">#
+                    <input id="hashtag" type="text" name="hashtag" pattern="[A-Za-z]{2,50}" title="Hashtags contain only letters. Please enter 2-50 letters!"/>
+                    <input id="postid" type="hidden" name="postid" value="<%= post._id %>" />
+                </label>
+                </form>
+                </div>
+            <% }) %> 
+            </div> 
+        </div>  
+    </main>
+</body>
+</html>
