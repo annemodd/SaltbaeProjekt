@@ -51,10 +51,9 @@ app.get('/about', function(req, res) {
 
 //Link to error page
 app.get('/error', function(req,res) {
-    const login = req.isAuthenticated();
-     res.render('pages/error',{
-        login
-    });
+    //when an error occurs the user will be logged out
+    req.session.destroy();
+    res.render('pages/error');
     
 });
 
@@ -67,6 +66,7 @@ app.get('/auth/callback',restricted(), async(req,res)=>{
     }catch(err){
         console.error(err);
         res.redirect('/error');
+
     }
 });
 
