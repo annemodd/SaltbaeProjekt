@@ -43,12 +43,19 @@ app.get('/', function(req, res) {
 
 // Verlinkung about page
 app.get('/about', function(req, res) {
-    res.render('pages/about');
+    const login = req.isAuthenticated();
+     res.render('pages/about',{
+        login
+    });
 });
 
 //Link to error page
 app.get('/error', function(req,res) {
-    res.render('pages/error');
+    const login = req.isAuthenticated();
+     res.render('pages/error',{
+        login
+    });
+    
 });
 
 
@@ -73,7 +80,7 @@ app.get('/feed', restricted(), async(req, res)=>{
         });
     }catch(err){
         console.error(err);
-        res.send("Ooops something went wrong...");
+        res.redirect('/error');
     }
 });
 
@@ -85,7 +92,7 @@ app.get('/funny', restricted(), async(req, res)=>{
         });
     }catch(err){
         console.error(err);
-        res.send("Ooops something went wrong...");
+        res.redirect('/error');
     }
 });
 
@@ -97,57 +104,92 @@ app.get('/selfie', restricted(), async(req, res)=>{
         });
     }catch(err){
         console.error(err);
-        res.send("Ooops something went wrong...");
+        res.redirect('/error');
     }
 });
 
 app.get('/nature', restricted(), async(req, res)=>{
-    const posts = await findCategory('nature');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('nature');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 app.get('/animals', restricted(), async(req, res)=>{
-    const posts = await findCategory('animals');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('animals');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 app.get('/travel', restricted(), async(req, res)=>{
-    const posts = await findCategory('travel');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('travel');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 app.get('/food', restricted(), async(req, res)=>{
-    const posts = await findCategory('food');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('food');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 app.get('/technology', restricted(), async(req, res)=>{
-    const posts = await findCategory('technology');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('technology');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 app.get('/politics', restricted(), async(req, res)=>{
-    const posts = await findCategory('politics');
-    res.render('pages/feed',{
-            posts
-    });
+    try{
+        const posts = await findCategory('politics');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 app.get('/news', restricted(), async(req, res)=>{
-    const posts = await findCategory('news');
-    res.render('pages/feed',{
-            posts
-    });
+    try {
+        const posts = await findCategory('news');
+        res.render('pages/feed',{
+                posts
+        });
+    }catch(err){
+        console.error(err);
+        res.redirect('/error');
+    }
 });
 
 //Link to profile page only for logged in users
@@ -172,7 +214,7 @@ app.get('/delete/:id', async function(req,res){
         res.redirect('/profile');
      }catch(err){
         console.error(err);
-        res.send("Ooops something went wrong...");
+        res.redirect('/error');
     }
 });
 
@@ -199,11 +241,10 @@ app.post('/uploadFile', upload.single('photo'), async(req, res) => {
             res.redirect('/feed');
         }else{
             res.redirect('/upload');
-            //Error message to user
         } 
     }catch(err){
         console.error(err);
-        res.send("Ooops something went wrong...");
+        res.redirect('/error');
     }
 });
 
@@ -216,7 +257,7 @@ app.post('/uploadText', upload.single('text'), async(req, res) => {
         res.redirect('/feed')
     }catch(err){
         console.error(err);
-        res.send("Ooops something went wrong...");
+        res.redirect('/error');
     }
 });
 
@@ -230,7 +271,7 @@ app.post('/feed', upload.single('hashtag'), async(req, res) => {
         res.redirect('/feed');
     }catch(err){
         console.error(err);
-        res.send("Ooops something went wrong...");
+        res.redirect('/error');
     }
 }
 );

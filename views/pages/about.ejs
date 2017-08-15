@@ -11,9 +11,13 @@
     
 
     <main>  
-                <div class="feed">
-                <header>
+    <div class="feed">
+    <header>
+    <% if (login) { %>
         <% include ../partials/header %>
+    <% } else { %>
+        <% include ../partials/header_public %>
+    <% } %>
     </header>
                     <h1>Project #me</h1>
                     <p>The idea came up because we had problems coming up with funny and smart hashtags for our posts.
