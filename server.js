@@ -13,7 +13,7 @@ const restricted = sso(app, {
     facebook: {
         clientID        : '1162182387237775',
         clientSecret    : '0417ba8a1f0392dc48c5aba3eaa41dea',
-        callbackURL     : 'https://hausaufgabe.now.sh/auth/facebook/callback',
+        callbackURL     : 'http://localhost:8080/auth/facebook/callback',
         successRedirect: "/auth/callback",
         failureRedirect: "/",
     },

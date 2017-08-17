@@ -1,5 +1,6 @@
 {
   "name": "hausaufgabe",
+  "main": "server.js",
   "dependencies": {
     "@akoenig/sso": "^1.0.0",
     "arraylist": "^0.1.0",
@@ -23,8 +24,5 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "util-deprecate": "^1.0.2"
-  },
-  "scripts": {
-    "start": "node server.js"
   }
 }
