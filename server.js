@@ -9,6 +9,9 @@ const ArrayList = require('arraylist');
 //package for login
 const sso = require('@akoenig/sso');
 
+//Database user
+//Secret
+
 const restricted = sso(app, {
     facebook: {
         clientID        : '1162182387237775',
