@@ -31,4 +31,6 @@ DB_PORT=<PORT-DER-DATENBANK> node server.js
 
 ## Die Applikation online aufrufen
 
-Besuche unsere Webseite #me über den folgenden Link https://hausaufgabe.now.sh .
+Besuche unsere Webseite #me über den folgenden Link https://saltbaeprojekt.now.sh .
+
+Die Dokumentation und die Präsentation befinden sich nur im develop Branch.
