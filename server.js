@@ -16,7 +16,7 @@ const restricted = sso(app, {
     facebook: {
         clientID        : '1162182387237775',
         clientSecret    : '0417ba8a1f0392dc48c5aba3eaa41dea',
-        callbackURL     : 'https://hausaufgabe.now.sh/auth/facebook/callback',
+        callbackURL     : 'https://saltbaeprojekt.now.sh/auth/facebook/callback',
         successRedirect: "/auth/callback",
         failureRedirect: "/",
     },
@@ -33,7 +33,7 @@ const FB = require('fb');
 const upload = multer({ dest: `./uploads`});
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(express.static('./assets'));
-app.use('/uploads', express.static('./uploads'));
+app.use('/uploads', express('./uploads'));
 
 
 // set view
@@ -237,10 +237,11 @@ app.get('/logout', function(req, res){
 
 app.post('/uploadFile', upload.single('photo'), async(req, res) => {
     try{
+        const photo = req.file;
         const {filename, mimetype, size} = req.file;
         const category = req.body.categories;
         if(isImagetype(mimetype)){
-            await persistPhoto(filename, mimetype, size, req.user.id, category);
+            await persistPhoto(photo, filename, mimetype, size, req.user.id, category);
             res.redirect('/feed');
         }else{
             res.redirect('/upload');
