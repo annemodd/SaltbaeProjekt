@@ -31,6 +31,10 @@ DB_PORT=<PORT-DER-DATENBANK> node server.js
 
 ## Die Applikation online aufrufen
 
-Besuche unsere Webseite #me über den folgenden Link https://saltbaeprojekt.now.sh .
+Besuche unsere Webseite #me über den folgenden Link https://saltbaeprojekt.now.sh . Auf der deployten Seite funktioniert der Upload von Bildern nicht wegen Zugriffsrechten nicht.
 
+Auf fbdeveloper kann man nur eine Url  hinterlegen. Momentan ist die  https://saltbaeprojekt.now.sh
+ angegeben. Möchtest du im develop den localhost benutzen, wende dich bitte an @Olga.
 Die Dokumentation und die Präsentation befinden sich nur im develop Branch.
+
+
