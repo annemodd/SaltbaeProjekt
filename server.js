@@ -9,11 +9,15 @@ const ArrayList = require('arraylist');
 //package for login
 const sso = require('@akoenig/sso');
 
+//Database user
+//Secret
+
 const restricted = sso(app, {
     facebook: {
         clientID        : '1162182387237775',
         clientSecret    : '0417ba8a1f0392dc48c5aba3eaa41dea',
         callbackURL     : 'http://localhost:8080/auth/facebook/callback',
+        //callbackURL     : 'https://hausaufgabe.now.sh/auth/facebook/callback',
         successRedirect: "/auth/callback",
         failureRedirect: "/",
     },
@@ -74,7 +78,6 @@ app.get('/auth/callback',restricted(), async(req,res)=>{
 app.get('/feed', restricted(), async(req, res)=>{
     try{
         const posts = await findAllPosts();
-        //const posts = await findCategory(req.body.option);
         res.render('pages/feed',{
                 posts
         });
@@ -265,7 +268,7 @@ app.post('/feed', upload.single('hashtag'), async(req, res) => {
     const hashtag = req.body.hashtag;
     const postid = req.body.postid;
     try{
-        if(hashtag.match(isValidHashtag(hashtag))){
+        if(isValidHashtag(hashtag)){
             await persistHashtag(postid, hashtag);
         }
         res.redirect('/feed');
