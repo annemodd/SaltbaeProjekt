@@ -265,7 +265,7 @@ app.post('/feed', upload.single('hashtag'), async(req, res) => {
     const hashtag = req.body.hashtag;
     const postid = req.body.postid;
     try{
-        if(hashtag.match(isValidHashtag(hashtag))){
+      if (isValidHashtag(hashtag)){
             await persistHashtag(postid, hashtag);
         }
         res.redirect('/feed');

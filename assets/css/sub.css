@@ -40,8 +40,7 @@ a{
 }
 
 a:hover{
-    background-color:black;
-    color:lightgrey;
+    color:lightgray;
 }
 
 li.title{
@@ -122,13 +121,12 @@ span.dropdown{
 }
 
 span.dropdown:hover div.categories{
-    width: 160px;
-    display: block;
+    display:block;
     position:absolute;
 }
 
 ul.dropdown{
- text-align: left;
+    padding:5px;
 }
 
 div.posts{
