@@ -78,7 +78,6 @@ app.get('/auth/callback',restricted(), async(req,res)=>{
 app.get('/feed', restricted(), async(req, res)=>{
     try{
         const posts = await findAllPosts();
-        //const posts = await findCategory(req.body.option);
         res.render('pages/feed',{
                 posts
         });
